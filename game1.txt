@@ -1,0 +1,7 @@
+8
+P a,F a,P a;K b;P c,F b,P a;K a
+N;Y;N;Y
+P a 1,F a 16,P b 2,K a 19,P a 4
+K b 20,F c 30,K a 31
+
+P a 7,Dif 34,P a 10,P a 13,K a 25,K b 26,K b 32,K c 21,K c 27,K c 33,P b 5,P b 8,P b 11,P b 14,P c 3,P c 6,P c 9,P c 12,P c 15,F a 22,F a 28,F b 17,F b 23,F b 29,F c 18,F c 24,Dif 35,Dif 36,Dif 37,Dif 38

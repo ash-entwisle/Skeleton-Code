@@ -1,0 +1,8 @@
+P a,F a,P a;K b
+P a,F a,P a;P b,F b,P b;K c
+K a;K b;K c
+F c,P c,F c
+P a,F a,P a;P c,F c,P c
+P a,F a,K a
+P c,F c,K c
+P b,K b,F b
