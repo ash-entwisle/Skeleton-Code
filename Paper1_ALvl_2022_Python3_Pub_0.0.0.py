@@ -6,9 +6,9 @@
 import random
 import os
 
-def Main():
-    ThisGame = Breakthrough()
-    ThisGame.PlayGame()
+def Main():                                                                                 #called by ln 470
+    ThisGame = Breakthrough()                                                               #init game class to ThisGame var
+    ThisGame.PlayGame()                                                                     #runs PlayGame() in Breakthrough()
 
 class Breakthrough():
     def __init__(self):
@@ -24,7 +24,7 @@ class Breakthrough():
         self.__LoadLocks()
     
     def PlayGame(self):
-        if len(self.__Locks) > 0:
+        if len(self.__Locks) > 0:                                                           #if locks in locks.txtr
             self.__SetupGame()
             while not self.__GameOver:
                 self.__LockSolved = False
@@ -466,5 +466,5 @@ class CardCollection():
             CardDisplay += LineOfDashes + "\n"
         return CardDisplay
 
-if __name__ == "__main__":
-    Main()
+if __name__ == "__main__":                                                                  #when program runs
+    Main()                                                                                  #call function Main()
