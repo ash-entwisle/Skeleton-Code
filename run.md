@@ -1,17 +1,17 @@
 **startup process**
-
+```
 ln 469 checks then calls Main() func on line 9
 Main() initialises the class Breakthrough() to ThisGame
 
-\_\_init__ runs and initialises these variables:
-__Deck initialises instance CardCollection() wtih \_Name == _DECK_
-__Hand initialises instance CardCollection() with \_Name == _HAND_
-__Sequence initialises instance CardCollection() with \_Name == _SEQUENCE_
-__Discard initialises instance CardCollection() with \_Name == _DISCARD_
+__init__ runs and initialises these variables:
+__Deck initialises instance CardCollection() wtih _Name == DECK
+__Hand initialises instance CardCollection() with _Name == HAND
+__Sequence initialises instance CardCollection() with _Name == SEQUENCE
+__Discard initialises instance CardCollection() with _Name == DISCARD
 __Score == 0
 __Locks == []
 __GameOver == False
-__CurrentLock initialises instance Lock with \_Challenges == []
+__CurrentLock initialises instance Lock with _Challenges == []
 __LockSolved == False
 __LoadLocks() called 
     FileName == locks.txt
@@ -20,10 +20,10 @@ __LoadLocks() called
         open FileName as f
         strips 1st line to LineFromFile
         Challenges == split LineFromFile with ;
-        LockFromFile initialises instance Lock \_Challenges == []
+        LockFromFile initialises instance Lock _Challenges == []
         Conditions == split Challenges with ,
         for each Challenge, run LocksFromFile.AddChallenge(conditiond)
-            C initialised with Challenge() with \_Met == False \_Condition == []
+            C initialised with Challenge() with _Met == False _Condition == []
             _Condition == each condition under Challenge
         Append LockFromFile to __Locks
         repeat from 21 until file is empty
@@ -31,7 +31,7 @@ __LoadLocks() called
 
 Main() continues to execute 
 
-PlayGame is called: _#still working on all of this shit_
+PlayGame is called: #still working on all of this shit
 if no locks in __Locks, raise error and output "File not loaded"
 else:
 call __SetupGame()
@@ -42,12 +42,13 @@ call __SetupGame()
 
 
     If file loaded:
-    __LoadGame(_"game1.txt"_) is called
+    __LoadGame("game1.txt") is called
         LineFromFile == line stripped
         __Score == LineFromFile
         LineFromFile == line stripped
         LineFromFile2 == line stripped
 
+```
 
 
 
