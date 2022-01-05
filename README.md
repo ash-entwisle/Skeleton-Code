@@ -3,7 +3,9 @@
 This is a general document that outlines information for the Skeleton Code _(found in gamefiles\skeleton\_code.py)_ and a rundown of how it works and what it can be used for.
 Further information about the code can be found in _preliminary\_material.pdf_
 
-
+**Links to Sections:**
+1. [timestamped notes on progress](https://github.com/async-def-init/Skeleton-Code#notes)
+2. 
 
 # **Notes**
 
