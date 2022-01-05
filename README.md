@@ -5,7 +5,11 @@ Further information about the code can be found in _preliminary\_material.pdf_
 
 **Links to Sections:**
 1. [timestamped notes on progress](https://github.com/async-def-init/Skeleton-Code#notes)
-2. 
+2. [outline of requirements and checklist](https://github.com/async-def-init/Skeleton-Code#overview)
+3. [tutorial on how to use the python file](https://github.com/async-def-init/Skeleton-Code#how-to-play)
+4. [breakdown of all the classes](https://github.com/async-def-init/Skeleton-Code#class-breakdown)
+5. [trace of how the application starts up](https://github.com/async-def-init/Skeleton-Code#startup-process)
+6. [predictions on possible questions](https://github.com/async-def-init/Skeleton-Code#predictions)
 
 # **Notes**
 
@@ -71,7 +75,7 @@ Breakthrough()
 
 ```
 
-# **startup process**
+# **Application Startup**
 ```
 ln 469 checks then calls Main() func on line 9
 Main() initialises the class Breakthrough() to ThisGame
@@ -124,7 +128,7 @@ call __SetupGame()
 ```
 
 
-# **lines called on startup**
+**lines called on startup**
 
 ```
 ln 469 checked
