@@ -1,4 +1,4 @@
-**startup process**
+# **startup process**
 ```
 ln 469 checks then calls Main() func on line 9
 Main() initialises the class Breakthrough() to ThisGame
@@ -62,7 +62,7 @@ call __SetupGame()
 
 
 
-**lines called on startup**
+# **lines called on startup**
 
 ```
 ln 469 checked
