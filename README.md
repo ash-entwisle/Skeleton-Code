@@ -8,7 +8,7 @@ Further information about the code can be found in _preliminary\_material.pdf_
 2. [outline of requirements and checklist](https://github.com/async-def-init/Skeleton-Code#overview)
 3. [tutorial on how to use the python file](https://github.com/async-def-init/Skeleton-Code#how-to-play)
 4. [breakdown of all the classes](https://github.com/async-def-init/Skeleton-Code#class-breakdown)
-5. [trace of how the application starts up](https://github.com/async-def-init/Skeleton-Code#startup-process)
+5. [trace of how the application starts up](https://github.com/async-def-init/Skeleton-Code#application-startup)
 6. [predictions on possible questions](https://github.com/async-def-init/Skeleton-Code#predictions)
 
 # **Notes**
@@ -18,6 +18,7 @@ Further information about the code can be found in _preliminary\_material.pdf_
 [2021/12/15 14:20]: This code is not the worst, but awful
 [2021/12/30 xx:xx]: Tried adding comments to code but gave up, started hand tracing
 [2021/12/31 13:15]: Hand traced startup to __SetupGame() and can be found in run.md
+[2022/01/05 17:00]: After forgetting to commit stuff for abt an hr, it is all up to date
 ```
 # **Overview**
 
