@@ -1,4 +1,4 @@
-8
+
 P a,F a,P a;K b;P c,F b,P a;K a
 N;Y;N;Y
 P a 1,F a 16,P b 2,K a 19,P a 4

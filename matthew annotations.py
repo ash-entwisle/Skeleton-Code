@@ -2,6 +2,7 @@
 # this code should be used in conjunction with the Preliminary Material
 # written by the AQA Programmer Team
 # developed in the Python 3.9 programming environment
+#! Best read in BetterComments because nice colours yay!
 
 import random
 import os
