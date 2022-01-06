@@ -1,0 +1,28 @@
+<mxfile host="65bd71144e">
+    <diagram id="Q78mTu5b7KJ9TF3KfNBj" name="Class diagram">
+        <mxGraphModel dx="298" dy="830" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="2" value="Breakthrough" style="swimlane;fontStyle=1;align=center;verticalAlign=middle;childLayout=stackLayout;horizontal=1;startSize=29;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=0;marginBottom=0;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="20" y="40" width="140" height="180" as="geometry"/>
+                </mxCell>
+                <mxCell id="3" value="-Deck&lt;br&gt;-Hand&lt;br&gt;-Sequence&lt;br&gt;-Discard&lt;br&gt;-Score&lt;br&gt;-Locks&lt;br&gt;-GameOver&lt;br&gt;-CurrentLock&lt;br&gt;-LockSolved&lt;br&gt;-LoadLocks()" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="2" vertex="1">
+                    <mxGeometry y="29" width="140" height="151" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="Breakthrough" style="swimlane;fontStyle=1;align=center;verticalAlign=top;childLayout=stackLayout;horizontal=1;startSize=26;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;" parent="1" vertex="1">
+                    <mxGeometry x="200" y="40" width="350" height="350" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="-Deck: &#10;-Hand&#10;-Sequence&#10;-Discard&#10;-Score&#10;-Locks&#10;-GameOver&#10;-CurrentLock&#10;-LockSolved&#10;-LoadLocks()" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="6" vertex="1">
+                    <mxGeometry y="26" width="350" height="154" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;" parent="6" vertex="1">
+                    <mxGeometry y="180" width="350" height="8" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="+ PlayGame()&#10;+ ProcessLockSolved()&#10;+ CheckIfPlayerHasLost()&#10;+ SetupGame()&#10;+ PlayCardToSequence(CardChoice)&#10;+ CheckIfLockChallengeMet()&#10;+ SetupCardColelctionFromGameFIle(LineFromFile, CardCol)&#10;+ SetupLock(Line1, Line2)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="6" vertex="1">
+                    <mxGeometry y="188" width="350" height="162" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
