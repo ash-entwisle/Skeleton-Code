@@ -19,5 +19,6 @@
         "titleBar.inactiveForeground": "#e7e7e799"
     },
     "peacock.color": "#ff3d00",
-    "discord.enabled": true
+    "discord.enabled": true,
+    "python.pythonPath": "C:\\Users\\User\\AppData\\Local\\Programs\\Python\\Python310\\python.exe"
 }
