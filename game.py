@@ -41,9 +41,9 @@ class Breakthrough():
                 self.__LockSolved = False                                                           #* Attibute modified to make sure no problems caused by LockSolved being True
                 while not self.__LockSolved and not self.__GameOver:
                     print()                                                                         #? unrelated but why line break like this???
-                    print("Current score:", self.__Score)                                           #*Bunch of printed details from methods
-                    print(self.__CurrentLock.GetLockDetails())                                              #*GetLockDetails Line 300
-                    print(self.__Sequence.GetCardDisplay())
+                    print("Current score:", self.__Score)                                           #* Bunch of printed details from methods
+                    print(self.__CurrentLock.GetLockDetails())                                              #* GetLockDetails Line 300
+                    print(self.__Sequence.GetCardDisplay())                                                 #* GetCardDisplay Line 
                     print(self.__Hand.GetCardDisplay())
                     MenuChoice = self.__GetChoice()
                     if MenuChoice == "D":
@@ -299,14 +299,14 @@ class Lock():
 
     def GetLockDetails(self):
         LockDetails = "\n" + "CURRENT LOCK" + "\n" + "------------" + "\n"      #* Basic variable to assist with formatting
-        for C in self._Challenges:
+        for C in self._Challenges:                                              #* C is an attribute of the AddChallenge method
             if C.GetMet():
-                LockDetails += "Challenge met: "
+                LockDetails += "Challenge met: "                                #* Prints if challenge met/not met
             else:
                 LockDetails += "Not met:       "
             LockDetails += self.__ConvertConditionToString(C.GetCondition()) + "\n"
         LockDetails += "\n"
-        return LockDetails
+        return LockDetails                                                      #* Finally returns the details of the lock stored in above variables
 
     def GetLockSolved(self):
         for C in self._Challenges:
@@ -453,17 +453,17 @@ class CardCollection():
         return LineOfDashes
     
     def GetCardDisplay(self):
-        CardDisplay = "\n" + self._Name + ":"
+        CardDisplay = "\n" + self._Name + ":"                           #* Variable steals the name of the card given (defined in the class' attribute from use of class elsewhere)
         if len(self._Cards) == 0:
-            return CardDisplay + " empty" + "\n" + "\n"
+            return CardDisplay + " empty" + "\n" + "\n"                 #* Returns card values
         else:
             CardDisplay += "\n" + "\n"
-        LineOfDashes = ""
-        CARDS_PER_LINE  = 10
-        if len(self._Cards) > CARDS_PER_LINE:
-            LineOfDashes = self.__CreateLineOfDashes(CARDS_PER_LINE)
+        LineOfDashes = ""           #? Yet again why this janky formatting??? *later edit - predefining variable for later use
+        CARDS_PER_LINE  = 10                                            #* Maximum cards defined here
+        if len(self._Cards) > CARDS_PER_LINE:                           #* If length of cards is greater than 10 state length of line of dashes = 10
+            LineOfDashes = self.__CreateLineOfDashes(CARDS_PER_LINE)    #* LineOfDashes line is set to current CARDS_PER_LINE variable
         else:
-            LineOfDashes = self.__CreateLineOfDashes(len(self._Cards))
+            LineOfDashes = self.__CreateLineOfDashes(len(self._Cards))  #* Else? Get the length of the cards and set that to the line of dashes' length
         CardDisplay += LineOfDashes + "\n"
         Complete = False
         Pos  = 0
