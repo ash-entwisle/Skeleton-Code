@@ -251,7 +251,7 @@ class Breakthrough():
             NewCard = ToolCard("K", "c")
             self.__Deck.AddCard(NewCard)
     
-    def __MoveCard(self, FromCollection, ToCollection, CardNumber): #* movees card from set to set (i.e. deck to hand)
+    def __MoveCard(self, FromCollection, ToCollection, CardNumber): #* moves card from set to set (i.e. deck to hand)
         Score  = 0
         if FromCollection.GetName() == "HAND" and ToCollection.GetName() == "SEQUENCE":
             CardToMove = FromCollection.RemoveCard(CardNumber)
