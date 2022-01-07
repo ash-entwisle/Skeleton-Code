@@ -129,20 +129,6 @@ call __SetupGame()
 ```
 
 
-**lines called on startup**
-
-```
-ln 469 checked
-ln 470 runs
-ln 9 is called
-ln 10 inits ln 13
-ln 14 run
-ln 15-23 init
-ln 24 calls ln ln 154
-ln 158 loads locks.txt 
-```
-
-
 
 # **Predictions**
 

@@ -2,6 +2,7 @@
 # this code should be used in conjunction with the Preliminary Material
 # written by the AQA Programmer Team
 # developed in the Python 3.9 programming environment
+#! Best read in BetterComments because nice colours yay!
 
 import random
 import os
@@ -34,15 +35,15 @@ class Breakthrough():
 #* PlayGame method
 
     def PlayGame(self):
-        if len(self.__Locks) > 0:                                   #*If length of the locks is greater than 0:
-            self.__SetupGame()                                      #*Call __SetupGame() method
+        if len(self.__Locks) > 0:                                                                   #* If length of the locks file is greater than 0:
+            self.__SetupGame()                                                                      #* Call __SetupGame() method (else feedback that there are no locks in the file)
             while not self.__GameOver:
-                self.__LockSolved = False
+                self.__LockSolved = False                                                           #* Attibute modified to make sure no problems caused by LockSolved being True
                 while not self.__LockSolved and not self.__GameOver:
-                    print()
-                    print("Current score:", self.__Score)
-                    print(self.__CurrentLock.GetLockDetails())
-                    print(self.__Sequence.GetCardDisplay())
+                    print()                                                                         #? unrelated but why line break like this???
+                    print("Current score:", self.__Score)                                           #* Bunch of printed details from methods
+                    print(self.__CurrentLock.GetLockDetails())                                              #* GetLockDetails Line 300
+                    print(self.__Sequence.GetCardDisplay())                                                 #* GetCardDisplay Line 
                     print(self.__Hand.GetCardDisplay())
                     MenuChoice = self.__GetChoice()
                     if MenuChoice == "D":
@@ -86,15 +87,15 @@ class Breakthrough():
                 self.__GameOver = True
         
         else:
-            self.__CreateStandardDeck()
-            self.__Deck.Shuffle()
-            for Count in range(5):
+            self.__CreateStandardDeck() #*initialises deck
+            self.__Deck.Shuffle() #* shuffles deck
+            for Count in range(5): #* draws top 5 cards
                 self.__MoveCard(self.__Deck, self.__Hand, self.__Deck.GetCardNumberAt(0))
-            self.__AddDifficultyCardsToDeck()
-            self.__Deck.Shuffle()
-            self.__CurrentLock = self.__GetRandomLock()
+            self.__AddDifficultyCardsToDeck() # add stuff here
+            self.__Deck.Shuffle() #* re-shuffle deck
+            self.__CurrentLock = self.__GetRandomLock() #* sets current lock to random lock
     
-    def __PlayCardToSequence(self, CardChoice):
+    def __PlayCardToSequence(self, CardChoice): # idfk what this func is, please help
         if self.__Sequence.GetNumberOfCards() > 0:
             if self.__Hand.GetCardDescriptionAt(CardChoice - 1)[0] != self.__Sequence.GetCardDescriptionAt(self.__Sequence.GetNumberOfCards() - 1)[0]:
                 self.__Score += self.__MoveCard(self.__Hand, self.__Sequence, self.__Hand.GetCardNumberAt(CardChoice - 1))
@@ -108,7 +109,7 @@ class Breakthrough():
             print()
             self.__Score += 5
 
-    def __CheckIfLockChallengeMet(self):
+    def __CheckIfLockChallengeMet(self): #* checks if lock is is met from sequence 
         SequenceAsString = ""
         for Count in range(self.__Sequence.GetNumberOfCards() - 1, max(0, self.__Sequence.GetNumberOfCards() - 3) -1, -1):
             if len(SequenceAsString) > 0:
@@ -118,7 +119,7 @@ class Breakthrough():
                 return True
         return False
     
-    def __SetupCardCollectionFromGameFile(self, LineFromFile, CardCol):
+    def __SetupCardCollectionFromGameFile(self, LineFromFile, CardCol): # idfk what this is, need help here
         if len(LineFromFile) > 0:
             SplitLine = LineFromFile.split(",")
             for Item in SplitLine:
@@ -165,7 +166,7 @@ class Breakthrough():
             print("File not loaded")
             return False
 
-    def __LoadLocks(self):
+    def __LoadLocks(self): #* loads locks from locks.txt
         FileName = "locks.txt"
         self.__Locks = []
         try:
@@ -182,10 +183,10 @@ class Breakthrough():
         except:
             print("File not loaded")
         
-    def __GetRandomLock(self):
+    def __GetRandomLock(self): #* picks random lock
         return self.__Locks[random.randint(0, len(self.__Locks) - 1)]
 
-    def __GetCardFromDeck(self, CardChoice):
+    def __GetCardFromDeck(self, CardChoice): # idfk what to do here lol
         if self.__Deck.GetNumberOfCards() > 0:
             if self.__Deck.GetCardDescriptionAt(0) == "Dif":
                 CurrentCard = self.__Deck.RemoveCard(self.__Deck.GetCardNumberAt(0))
@@ -206,7 +207,7 @@ class Breakthrough():
         if self.__Deck.GetNumberOfCards() == 0 and self.__Hand.GetNumberOfCards() < 5:
             self.__GameOver = True
 
-    def __GetCardChoice(self):
+    def __GetCardChoice(self): #* specifies what card choice
         Choice = None
         while Choice is None:
             try: 
@@ -215,20 +216,20 @@ class Breakthrough():
                 pass
         return Choice
 
-    def __GetDiscardOrPlayChoice(self):
+    def __GetDiscardOrPlayChoice(self): #* choice of discard/play
         Choice = input("(D)iscard or (P)lay?:> ").upper()
         return Choice
 
-    def __GetChoice(self):
+    def __GetChoice(self): #* use/discard
         print()
         Choice = input("(D)iscard inspect, (U)se card:> ").upper()
         return Choice
     
-    def __AddDifficultyCardsToDeck(self):
+    def __AddDifficultyCardsToDeck(self): # idfk abt this sorta stuff
         for Count in range(5):
             self.__Deck.AddCard(DifficultyCard())
 
-    def __CreateStandardDeck(self):
+    def __CreateStandardDeck(self): #* init deck
         for Count in range(5):
             NewCard = ToolCard("P", "a")
             self.__Deck.AddCard(NewCard)
@@ -250,7 +251,7 @@ class Breakthrough():
             NewCard = ToolCard("K", "c")
             self.__Deck.AddCard(NewCard)
     
-    def __MoveCard(self, FromCollection, ToCollection, CardNumber):
+    def __MoveCard(self, FromCollection, ToCollection, CardNumber): #* movees card from set to set (i.e. deck to hand)
         Score  = 0
         if FromCollection.GetName() == "HAND" and ToCollection.GetName() == "SEQUENCE":
             CardToMove = FromCollection.RemoveCard(CardNumber)
@@ -263,6 +264,9 @@ class Breakthrough():
                 ToCollection.AddCard(CardToMove)
         return Score
 
+
+#* getter/setter for challenge conditions
+#* challenge initialised -> condition set  
 class Challenge():
     def __init__(self):
         self._Met = False
@@ -280,16 +284,17 @@ class Challenge():
     def SetCondition(self, NewCondition):
         self._Condition = NewCondition
 
+
 class Lock():
     def __init__(self):
-        self._Challenges = []
+        self._Challenges = []                                                   #* initialises challenges var
         
-    def AddChallenge(self, Condition):
+    def AddChallenge(self, Condition):                                          #* inherits from Challenge(), sets condition and appends val
         C = Challenge()
         C.SetCondition(Condition)
         self._Challenges.append(C)
 
-    def __ConvertConditionToString(self, C):
+    def __ConvertConditionToString(self, C):                                    #* formatting to be able to use condition as string
         ConditionAsString = ""
         for Pos in range(0, len(C) - 1):
             ConditionAsString += C[Pos] + ", "
@@ -297,23 +302,23 @@ class Lock():
         return ConditionAsString
 
     def GetLockDetails(self):
-        LockDetails = "\n" + "CURRENT LOCK" + "\n" + "------------" + "\n"
-        for C in self._Challenges:
+        LockDetails = "\n" + "CURRENT LOCK" + "\n" + "------------" + "\n"      #* Basic variable to assist with formatting
+        for C in self._Challenges:                                              #* C is an attribute of the AddChallenge method
             if C.GetMet():
-                LockDetails += "Challenge met: "
+                LockDetails += "Challenge met: "                                #* Prints if challenge met/not met
             else:
                 LockDetails += "Not met:       "
             LockDetails += self.__ConvertConditionToString(C.GetCondition()) + "\n"
         LockDetails += "\n"
-        return LockDetails
+        return LockDetails                                                      #* Finally returns the details of the lock stored in above variables
 
-    def GetLockSolved(self):
+    def GetLockSolved(self):                                                    # not sure what this bit does
         for C in self._Challenges:
             if not C.GetMet():
                 return False
         return True
     
-    def CheckIfConditionMet(self, Sequence):
+    def CheckIfConditionMet(self, Sequence):                                    # same here as well
         for C in self._Challenges:
             if not C.GetMet() and Sequence == self.__ConvertConditionToString(C.GetCondition()):
                 C.SetMet(True)
@@ -452,17 +457,17 @@ class CardCollection():
         return LineOfDashes
     
     def GetCardDisplay(self):
-        CardDisplay = "\n" + self._Name + ":"
+        CardDisplay = "\n" + self._Name + ":"                           #* Variable steals the name of the card given (defined in the class' attribute from use of class elsewhere)
         if len(self._Cards) == 0:
-            return CardDisplay + " empty" + "\n" + "\n"
+            return CardDisplay + " empty" + "\n" + "\n"                 #* Returns card values
         else:
             CardDisplay += "\n" + "\n"
-        LineOfDashes = ""
-        CARDS_PER_LINE  = 10
-        if len(self._Cards) > CARDS_PER_LINE:
-            LineOfDashes = self.__CreateLineOfDashes(CARDS_PER_LINE)
+        LineOfDashes = ""           #? Yet again why this janky formatting??? *later edit - predefining variable for later use
+        CARDS_PER_LINE  = 10                                            #* Maximum cards defined here
+        if len(self._Cards) > CARDS_PER_LINE:                           #* If length of cards is greater than 10 state length of line of dashes = 10
+            LineOfDashes = self.__CreateLineOfDashes(CARDS_PER_LINE)    #* LineOfDashes line is set to current CARDS_PER_LINE variable
         else:
-            LineOfDashes = self.__CreateLineOfDashes(len(self._Cards))
+            LineOfDashes = self.__CreateLineOfDashes(len(self._Cards))  #* Else? Get the length of the cards and set that to the line of dashes
         CardDisplay += LineOfDashes + "\n"
         Complete = False
         Pos  = 0
