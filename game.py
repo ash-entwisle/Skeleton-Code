@@ -463,7 +463,7 @@ class CardCollection():
         if len(self._Cards) > CARDS_PER_LINE:                           #* If length of cards is greater than 10 state length of line of dashes = 10
             LineOfDashes = self.__CreateLineOfDashes(CARDS_PER_LINE)    #* LineOfDashes line is set to current CARDS_PER_LINE variable
         else:
-            LineOfDashes = self.__CreateLineOfDashes(len(self._Cards))  #* Else? Get the length of the cards and set that to the line of dashes' length
+            LineOfDashes = self.__CreateLineOfDashes(len(self._Cards))  #* Else? Get the length of the cards and set that to the line of dashes
         CardDisplay += LineOfDashes + "\n"
         Complete = False
         Pos  = 0
