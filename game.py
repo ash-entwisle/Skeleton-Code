@@ -464,11 +464,11 @@ class CardCollection():
             LineOfDashes = self.__CreateLineOfDashes(CARDS_PER_LINE)    #* LineOfDashes line is set to current CARDS_PER_LINE variable
         else:
             LineOfDashes = self.__CreateLineOfDashes(len(self._Cards))  #* Else? Get the length of the cards and set that to the line of dashes
-        CardDisplay += LineOfDashes + "\n"
-        Complete = False
-        Pos  = 0
-        while not Complete:
-            CardDisplay += "| " + self._Cards[Pos].GetDescription() + " "
+        CardDisplay += LineOfDashes + "\n"                              #carddisplay is the glorious variable that does line breaks and dashes to format the console woooow
+        Complete = False                                                #complete set to false here instead of beginning idk I state variables at the top usually
+        Pos  = 0                                                        #same here with pos (used to store card position as number to use in array later)
+        while not Complete:                                             #explains itself
+            CardDisplay += "| " + self._Cards[Pos].GetDescription() + " "   #
             Pos += 1
             if Pos % CARDS_PER_LINE == 0:
                 CardDisplay += "|" + "\n" + LineOfDashes + "\n"

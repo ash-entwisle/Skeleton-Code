@@ -1,8 +1,6 @@
 # **Content**
 
-## im gonna add a contetnts page when i've actually properly formatted and written this readme
-
-#
+## im gonna add a contents page when i've actually properly formatted and written this readme
 
 FYI the annotated python file is best read with BetterComments, I wrote stuff in it because it gives the comments different colours don't @ me on how I use it
 
@@ -16,4 +14,5 @@ FYI the annotated python file is best read with BetterComments, I wrote stuff in
        ''        Inconsistent line breaking methods, different people working on the same thing and not coordinating???
 [07/01/22@12:25] Getting hungry so one of the last things I do for now, committing with the previous comments (not many extra really)
        ''        Slightly impressed at the lengths gone to make the program properly format itself sometimes, not so impressed by the fact the program is a bit broken
+[10/01/22@11:23] You saw no e flashback cos contents on this readme was spelled as contetnts
 ```
