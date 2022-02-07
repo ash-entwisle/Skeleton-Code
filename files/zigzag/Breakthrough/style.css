@@ -1,0 +1,130 @@
+a h1 { color:#125e84;}
+
+
+p.caption {font-size:0.9em; font-weight:bold; margin:0px 25%;}
+
+h2 span.code {font-weight:bold; color:darkred;}
+
+
+span.code {font-weight:bold; color:darkred; font-family:"Sintony"; font-size:0.95em;}
+body { background-image: url("images/background.jpg"); background-repeat:repeat; background-color:#123d; font-family: 'Arial', Century Gothic, sans-serif; color:#000;line-height:130%; }
+a {font-weight: bold; color: #C11B17; text-decoration: none;}
+a:hover {color: darkblue;}
+a:visited {color: darkred;}
+a.name {text-decoration:none;}
+p {margin:6px 0px; }
+ul {list-style-type:square; margin:5px 0px 10px 0px;}
+
+ul li,ol li {padding-top:5px;}
+
+
+div {padding:8px;}
+div.container { max-width:960px; border:1px solid #000; margin:0 auto; background:#FFF; }
+div.footer {font-size:0.75em;}
+div.banner { no-repeat #FFFFFF; color:#000; margin:10px; overflow:hidden; padding:0; text-align:center;}
+div.banner h1{ font-size:22pt; padding:25px; padding-left:130px; padding-right:120px; margin:0;}
+div.topic_header { margin:10px; color:#000; padding:0}	
+div.topic_header a { text-decoration:none; color:#000000;}	
+div.topic_header h1 { font-family: 'Arial', Century Gothic, sans-serif; margin:0; padding:0px 5px; font-size:26pt; font-weight:normal; }	
+div.quicklinks {border:1px solid #CCC; background: #DBEEF4;color:#888;font-size:0.75em; margin:0px;}
+div.textbox {font-size: 0.95em; border:1px solid; background-color: #FFF8DC; margin: 0px 0px 10px 10px; display:inline-block}
+@media (max-width: 480px) {
+	p 	{
+		clear:both;
+		}
+	div.textbox 	{
+				width: 95%; float: center;
+				}
+	}
+textarea{margin-top:10px; border:1px solid #AAA; padding:4px 8px; color:darkblue;}
+div.textbox ul {margin:0; padding:0 20;}
+div.topic_info { overflow:auto; margin:20px 10px; font-size:11pt; }	
+div.topic_info img{ max-width:100%;margin:8px 0px; border:1px solid #333; }	
+img.code {border-radius:8px; padding:5px;}
+div.topic_info  table{ font-size:11pt; line-height:135%; margin:10px 0px; border-collapse:collapse;border:1px solid #999; }	
+div.topic_info  table td{ vertical-align:top; padding:6px; border:1px solid #999; }	
+div.topic_info  table th{ vertical-align:middle; padding:6px; background:#333; border:1px solid #999; text-align:left; color:#FFF;} 	
+
+div.topic_info  table.evidencebox {width:100%; margin:20px 0px;}
+div.topic_info  table.evidencebox td {background-color:#EEE; border:1px solid #125e84; padding-right:10px;}
+div.topic_info  table.evidencebox th {background-color:#125e84; border:1px solid #125e84;}
+
+div.topic_info h1 { font-family: 'Arial', sans-serif; margin:5px 0px 10px 0px; font-size:20pt; border-bottom:1px solid; text-decoration:none; line-height:125%}	
+div.topic_info h2 { font-size:14pt; font-style:italic; margin:20px 0px 0px 0px;}		
+div.topic_info h3 { font-size:12pt; margin:20px 0px 0px 0px; color:darkblue; font-style:italic;}	
+img {border: solid 1px black;}
+div.topic_summary { float:right; width:35%; background:#DDD; border:1px solid #BBB; margin:10px; border-radius:15px;}	
+div.activity { overflow:auto; background:#e3f0b2; border:1px solid #CCC; margin:20px 0px; padding:4px 20px; font-size:10pt; border-radius:10px;}	
+div.activity  table{ width:100%;font-size:10pt; margin:10px 0px; border-collapse:collapse;border:1px solid #999; }	
+div.activity  table td{ vertical-align:top; padding:5px; background:#FFF; border:1px solid #999; }	
+div.activity  table th{ vertical-align:top; padding:5px; color: #FFF; background:#000; border:1px solid #999; }	
+div.activity  table ol{ margin:0; }	
+div.activity  table ol li{ margin:4px; }	
+div.activity h1 { font-family: 'Lobster', sans-serif; margin:0px 0px 10px 0px; font-size:20pt; color:#990000; font-weight:normal; border-bottom:1px solid #444;}					
+div.activity h2 { font-family: 'Lobster', sans-serif; font-size:16pt; margin:10px 0px 0px 0px; color:#990000; font-weight:normal; border-bottom:none;}	
+div.activity table th {vertical-align:middle;}
+div.activity table td {vertical-align:middle;}
+
+div.activity2 {overflow:auto; background: #f2debf; border:1px solid #CCC; margin:20px 0px; padding:4px 20px; font-size:10pt; border-radius:10px;}	
+div.activity2  table{ width:100%;font-size:10pt; margin:10px 0px; border-collapse:collapse;border:1px solid #999; }	
+div.activity2  table td{ vertical-align:top; padding:5px; background:#FFF; border:1px solid #999; }	
+div.activity2  table th{ vertical-align:top; padding:5px; color: #FFF; background:#000; border:1px solid #999; }	
+div.activity2  table ol{ margin:0; }	
+div.activity2  table ol li{ margin:4px; }	
+div.activity2 h1 { font-family: 'Lobster', sans-serif; margin:0px 0px 10px 0px; font-size:20pt; color:#444; font-weight:normal; border-bottom:none;}					
+div.activity2 h2 { font-family: 'Lobster', sans-serif; font-size:16pt; margin:10px 0px 0px 0px; color:#990000; font-weight:normal; border-bottom:none;}	
+div.activity2 table th {vertical-align:middle;}
+div.activity2 table td {vertical-align:middle;}
+
+div.activity3 {overflow:auto; background-color:rgba(153,198,142, 0.6);  border:1px solid #CCC; margin:20px 0px; padding:4px 20px; font-size:10pt; border-radius:10px;}	
+div.activity3  table{ width:100%;font-size:10pt; margin:10px 0px; border-collapse:collapse;border:1px solid #999; }	
+div.activity3  table td{ vertical-align:top; padding:5px; background:#FFF; border:1px solid #999; }	
+div.activity3  table th{ vertical-align:top; padding:5px; color: #FFF; background:#000; border:1px solid #999; }	
+div.activity3  table ol{ margin:0; }	
+div.activity3  table ol li{ margin:4px; }	
+div.activity3 h1 { font-family: 'Lobster', sans-serif; margin:0px 0px 10px 0px; font-size:20pt; color:#444; font-weight:normal; border-bottom:1px solid #444;}					
+div.activity3 h2 { font-family: 'Arial', Century Gothic, sans-serif; font-size:16pt; margin:10px 0px 0px 0px; color:#990000; font-weight:normal; border-bottom:none;}	
+div.activity3 table th {vertical-align:middle;}
+div.activity3 table td {vertical-align:middle;}
+
+div.quicklinks {background: #f2debf;}
+
+pre {margin-top:12px; background: #000; color: #FFF; padding:4px 8px;display: inline-block;}
+
+div.topic_examples { background-image:url('images/examples.png'); overflow:auto; margin:20px 10px; font-size:10pt; color: #FFF;}	
+div.topic_examples h1 { font-family: 'Lobster', sans-serif; margin:0px 0px 10px 0px; font-size:20pt; color:#FFF; font-weight:normal; }					
+div.topic_examples h2 { font-size:12pt; margin:0px 40% 0px 0px; }	
+table.tasks { font-family: 'Arial', Century Gothic, sans-serif; width:100%; border:none; font-size:11pt;}	
+table.tasks th { text-align:left; padding-top:15px;}	
+table.example { font-family: 'Arial', Century Gothic, sans-serif; border:none; font-size:11pt; margin:5 auto;}	
+table.example td { border:1px solid #FFF; text-align:center; width:275px; }	
+table.commentary {border:1px solid #000; border-collapse:collapse; width:100%;padding:5px;}
+table.commentary td p{margin:0px 0px 6px 0px; font-size:0.85rem;}
+table.commentary td.name {width:26%}
+table.commentary td.data {width:40%}
+
+ul.moves {margin:0px; padding-left:25px}
+ul.moves li, ol.moves li{padding:0px;}
+
+ul.evidence, ol.evidence {margin:0px; padding-left:25px;}
+ul.evidence li, ol.evidence li{padding:6px 4px;}
+
+hr {color:#efefef;}
+a.pdflink {float:right; margin-top:15px;}
+a.posterlink {float:right; margin-top:10px;}
+a.studentlink {float:right; font-size:18pt; margin:10px 15px 0px 0px;}
+	
+#nav { float: left; width: 100%; margin: 0; padding: 8px 4px; list-style: none; background: #ccc; border-top:1px solid #FFFFFF; }	
+#nav li { float: left; display: block; padding: 0px 15px 0px 6px; text-decoration: none; font-weight: bold; font-size: 90%; color: #000; background: #ccc url(images/nav_slant.gif) no-repeat top right;}
+#nav li.end { background: none; color:green;}
+#nav a { float: left; display: block; padding: 0px 4px 0px 0px; text-decoration: none; font-weight: bold; color: #666;  }	
+#nav #nav-1 a { padding-left: 10px;}	
+#nav a:hover { color: #000; }	
+#nav a.selected { color: darkred; }	
+ul#more { clear: left; margin-top: 60px;}
+#preso {height:100%; border: 3px solid #eee;}
+
+fieldset {margin:20px 0px; border:1px solid purple;  box-shadow: 3px 4px 4px 1px #CCC;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */ }
+legend {font-weight:bold; padding:5px;}
+
+  

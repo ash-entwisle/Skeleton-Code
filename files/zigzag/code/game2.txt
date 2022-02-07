@@ -1,0 +1,7 @@
+10
+P c,F c,P c
+N
+K c 26,P c 5,P c 14,F c 29,K b 31
+P a 0
+P b 13
+P a 9,F c 23,P b 7,K b 25,P c 2,K a 30,P a 10,P a 11,K a 21,F a 22,P a 12,P a 15
