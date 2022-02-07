@@ -189,22 +189,22 @@ class Breakthrough():
     def __GetCardFromDeck(self, CardChoice): # takes card from deck and puts into hand
         if self.__Deck.GetNumberOfCards() > 0: # if getting multiple cards
             if self.__Deck.GetCardDescriptionAt(0) == "Dif": # if first card in deck is difficulty card
-                CurrentCard = self.__Deck.RemoveCard(self.__Deck.GetCardNumberAt(0))
+                CurrentCard = self.__Deck.RemoveCard(self.__Deck.GetCardNumberAt(0)) #current card = first card in deck, card removed from deck
                 print()
                 print("Difficulty encountered!")
                 print(self.__Hand.GetCardDisplay()) # displays hand
                 print("To deal with this you need to either lose a key ", end='')
                 Choice = input("(enter 1-5 to specify position of key) or (D)iscard five cards from the deck:> ")
                 print()
-                self.__Discard.AddCard(CurrentCard)
-                CurrentCard.Process(self.__Deck, self.__Discard, self.__Hand, self.__Sequence, self.__CurrentLock, Choice, CardChoice)
+                self.__Discard.AddCard(CurrentCard) # current card added to discard pile
+                CurrentCard.Process(self.__Deck, self.__Discard, self.__Hand, self.__Sequence, self.__CurrentLock, Choice, CardChoice) # ?
         while self.__Hand.GetNumberOfCards() < 5 and self.__Deck.GetNumberOfCards() > 0:
-            if self.__Deck.GetCardDescriptionAt(0) == "Dif":
-                self.__MoveCard(self.__Deck, self.__Discard, self.__Deck.GetCardNumberAt(0))
+            if self.__Deck.GetCardDescriptionAt(0) == "Dif": # if first card in deck is difficulty card
+                self.__MoveCard(self.__Deck, self.__Discard, self.__Deck.GetCardNumberAt(0)) # difficulty card sent to discard pile/stack
                 print("A difficulty card was discarded from the deck when refilling the hand.")
             else:
-                self.__MoveCard(self.__Deck, self.__Hand, self.__Deck.GetCardNumberAt(0))
-        if self.__Deck.GetNumberOfCards() == 0 and self.__Hand.GetNumberOfCards() < 5:
+                self.__MoveCard(self.__Deck, self.__Hand, self.__Deck.GetCardNumberAt(0)) # card moved to hand pile/stack
+        if self.__Deck.GetNumberOfCards() == 0 and self.__Hand.GetNumberOfCards() < 5: # if no more cards in deck & cards in hand < 5, end game
             self.__GameOver = True
 
     def __GetCardChoice(self): #* specifies what card choice
@@ -225,7 +225,7 @@ class Breakthrough():
         Choice = input("(D)iscard inspect, (U)se card:> ").upper()
         return Choice
     
-    def __AddDifficultyCardsToDeck(self): # idfk abt this sorta stuff
+    def __AddDifficultyCardsToDeck(self): # 5 difficulty cards in deck each time game starts
         for Count in range(5):
             self.__Deck.AddCard(DifficultyCard())
 
