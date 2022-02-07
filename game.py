@@ -14,14 +14,13 @@ def Main():
     ThisGame = Breakthrough()
     ThisGame.PlayGame()
 
-
 #* Breakthrough class
 #* init a bunch of attributes for later use including using the call to the CardCollection class
 #* which takes the input and enters it as an attribute
 
 class Breakthrough():
     def __init__(self):
-        self.__Deck = CardCollection("DECK")
+        self.__Deck = CardCollection("DECK")     #* Constructor initialises private attributes here.
         self.__Hand = CardCollection("HAND")
         self.__Sequence = CardCollection("SEQUENCE")
         self.__Discard = CardCollection("DISCARD")
@@ -30,7 +29,7 @@ class Breakthrough():
         self.__GameOver = False
         self.__CurrentLock = Lock()
         self.__LockSolved = False
-        self.__LoadLocks()
+        self.__LoadLocks()     #* LoadLocks method used to load the "locks.txt" file
 
 #* PlayGame method
 
