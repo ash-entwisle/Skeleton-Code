@@ -95,19 +95,19 @@ class Breakthrough():
             self.__Deck.Shuffle() #* re-shuffle deck
             self.__CurrentLock = self.__GetRandomLock() #* sets current lock to random lock
     
-    def __PlayCardToSequence(self, CardChoice): # idfk what this func is, please help
-        if self.__Sequence.GetNumberOfCards() > 0:
-            if self.__Hand.GetCardDescriptionAt(CardChoice - 1)[0] != self.__Sequence.GetCardDescriptionAt(self.__Sequence.GetNumberOfCards() - 1)[0]:
-                self.__Score += self.__MoveCard(self.__Hand, self.__Sequence, self.__Hand.GetCardNumberAt(CardChoice - 1))
-                self.__GetCardFromDeck(CardChoice)
-        else:
-            self.__Score += self.__MoveCard(self.__Hand, self.__Sequence, self.__Hand.GetCardNumberAt(CardChoice - 1))
-            self.__GetCardFromDeck(CardChoice)
-        if self.__CheckIfLockChallengeMet():
+    def __PlayCardToSequence(self, CardChoice): 
+        if self.__Sequence.GetNumberOfCards() > 0: # if cards in sequence
+            if self.__Hand.GetCardDescriptionAt(CardChoice - 1)[0] != self.__Sequence.GetCardDescriptionAt(self.__Sequence.GetNumberOfCards() - 1)[0]: # if chosen card not same as type of previous card
+                self.__Score += self.__MoveCard(self.__Hand, self.__Sequence, self.__Hand.GetCardNumberAt(CardChoice - 1)) # add score value of card to user's score
+                self.__GetCardFromDeck(CardChoice) # add new card to hand from deck
+        else: #if no cards in sequence
+            self.__Score += self.__MoveCard(self.__Hand, self.__Sequence, self.__Hand.GetCardNumberAt(CardChoice - 1)) # add score value of card to user's score
+            self.__GetCardFromDeck(CardChoice) # add new card to hand from deck
+        if self.__CheckIfLockChallengeMet(): 
             print()
             print("A challenge on the lock has been met.")
             print()
-            self.__Score += 5
+            self.__Score += 5 
 
     def __CheckIfLockChallengeMet(self): #* checks if lock is is met from sequence 
         SequenceAsString = ""
@@ -119,30 +119,30 @@ class Breakthrough():
                 return True
         return False
     
-    def __SetupCardCollectionFromGameFile(self, LineFromFile, CardCol): # idfk what this is, need help here
-        if len(LineFromFile) > 0:
-            SplitLine = LineFromFile.split(",")
-            for Item in SplitLine:
+    def __SetupCardCollectionFromGameFile(self, LineFromFile, CardCol): # method which sets up card collection from game file
+        if len(LineFromFile) > 0: # if specified line in the file contains cards
+            SplitLine = LineFromFile.split(",") # split with commas
+            for Item in SplitLine: # for every item in specified line
                 if len(Item) == 5:
-                    CardNumber = int(Item[4])
+                    CardNumber = int(Item[4]) # card number set to 5th element in Item
                 else:
-                    CardNumber = int(Item[4:6])
-                if Item[0: 3] == "Dif":
-                    CurrentCard = DifficultyCard(CardNumber)
-                    CardCol.AddCard(CurrentCard)
+                    CardNumber = int(Item[4:6]) # card number set to 5th and 6th elements in Item
+                if Item[0: 3] == "Dif": # if card is a difficulty card
+                    CurrentCard = DifficultyCard(CardNumber) # current card set to difficulty card
+                    CardCol.AddCard(CurrentCard) # add current card to card collection
                 else:
-                    CurrentCard = ToolCard(Item[0], Item[2], CardNumber)
-                    CardCol.AddCard(CurrentCard)
+                    CurrentCard = ToolCard(Item[0], Item[2], CardNumber) # set current card to a tool card object of 1st element in Item, 3rd element in Item and CardNumber
+                    CardCol.AddCard(CurrentCard) # add current card to card collection
     
     def __SetupLock(self, Line1, Line2):
-        SplitLine = Line1.split(";")
+        SplitLine = Line1.split(";") # split specified line with ";"
         for Item in SplitLine:
-            Conditions = Item.split(",")
-            self.__CurrentLock.AddChallenge(Conditions)
-        SplitLine = Line2.split(";")
+            Conditions = Item.split(",") # conditions set to string of every element in item split with comma 
+            self.__CurrentLock.AddChallenge(Conditions) # Add challenge to current lock with conditions
+        SplitLine = Line2.split(";") # split specified line with ";"
         for Count in range(0, len(SplitLine)):
-            if SplitLine[Count] == "Y":
-                self.__CurrentLock.SetChallengeMet(Count, True)
+            if SplitLine[Count] == "Y": # if Y in SplitLine
+                self.__CurrentLock.SetChallengeMet(Count, True) # challenge is completed
     
     def __LoadGame(self, FileName):
         try:                                                                            #*Attempts to run the following, treating the filename as valid and workable
@@ -186,13 +186,13 @@ class Breakthrough():
     def __GetRandomLock(self): #* picks random lock
         return self.__Locks[random.randint(0, len(self.__Locks) - 1)]
 
-    def __GetCardFromDeck(self, CardChoice): # idfk what to do here lol
-        if self.__Deck.GetNumberOfCards() > 0:
-            if self.__Deck.GetCardDescriptionAt(0) == "Dif":
+    def __GetCardFromDeck(self, CardChoice): # takes card from deck and puts into hand
+        if self.__Deck.GetNumberOfCards() > 0: # if getting multiple cards
+            if self.__Deck.GetCardDescriptionAt(0) == "Dif": # if first card in deck is difficulty card
                 CurrentCard = self.__Deck.RemoveCard(self.__Deck.GetCardNumberAt(0))
                 print()
                 print("Difficulty encountered!")
-                print(self.__Hand.GetCardDisplay())
+                print(self.__Hand.GetCardDisplay()) # displays hand
                 print("To deal with this you need to either lose a key ", end='')
                 Choice = input("(enter 1-5 to specify position of key) or (D)iscard five cards from the deck:> ")
                 print()
