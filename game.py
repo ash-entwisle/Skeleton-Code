@@ -31,7 +31,7 @@ class Breakthrough():
         self.__LockSolved = False
         self.__LoadLocks()     #* LoadLocks method used to load the "locks.txt" file
 
-#* PlayGame method
+#* PlayGame method (calls all other methods, and very important)
 
     def PlayGame(self):
         if len(self.__Locks) > 0:                                                                   #* If length of the locks file is greater than 0:
@@ -80,13 +80,13 @@ class Breakthrough():
     def __SetupGame(self):
         Choice = input("Enter L to load a game from a file, anything else to play a new game:> ").upper() #*gets user input for what they want to do next and converts it to upper case(avoiding errors with IF statements)
         
-        #*if choice == "L" => Load a game with the __LoadGame function with the parameter "game1.txt" (used to determine file that contains the game text)
+        #* if choice == "L" => Load a game with the __LoadGame function with the parameter "game1.txt" (used to determine file that contains the game text)
         if Choice == "L":
-            if not self.__LoadGame("game1.txt"):
+            if not self.__LoadGame("game1.txt"):        #* anti brokey here - if loadgame isnt game1.txt we are finished, but if its ok...
                 self.__GameOver = True
         
         else:
-            self.__CreateStandardDeck()
+            self.__CreateStandardDeck()                 #* attributes initialised in this method
             self.__Deck.Shuffle()
             for Count in range(5):
                 self.__MoveCard(self.__Deck, self.__Hand, self.__Deck.GetCardNumberAt(0))
