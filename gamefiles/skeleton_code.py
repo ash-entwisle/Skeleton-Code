@@ -5,7 +5,7 @@
 #! Best read in BetterComments because nice colours yay!
 
 import random
-import os
+import os                                           # import os 
 
 #! main program function
 #! ThisGame is defined as using the Breakthrough() class, therefore later calling PlayGame
@@ -21,16 +21,16 @@ def Main():
 
 class Breakthrough():
     def __init__(self):
-        self.__Deck = CardCollection("DECK")
-        self.__Hand = CardCollection("HAND")
-        self.__Sequence = CardCollection("SEQUENCE")
-        self.__Discard = CardCollection("DISCARD")
-        self.__Score = 0
-        self.__Locks = []
-        self.__GameOver = False
-        self.__CurrentLock = Lock()
-        self.__LockSolved = False
-        self.__LoadLocks()
+        self.__Deck = CardCollection("DECK")            # * Deck is a CardCollection object
+        self.__Hand = CardCollection("HAND")            # * Hand is a CardCollection object
+        self.__Sequence = CardCollection("SEQUENCE")    # * Sequence is a CardCollection object
+        self.__Discard = CardCollection("DISCARD")      # * Discard is a CardCollection object 
+        self.__Score = 0                                # * Score is an integer (default 0)
+        self.__Locks = []                               # * Locks is a list of Lock objects (default empty)
+        self.__GameOver = False                         # * GameOver is a boolean  (True if game is over)
+        self.__CurrentLock = Lock()                     # * CurrentLock is a Lock object
+        self.__LockSolved = False                       # * LockSolved is a boolean (used to make sure no problems caused by LockSolved being True)
+        self.__LoadLocks()                              # * LoadLocks is a method that loads the locks from the file "locks.txt"
 
 #* PlayGame method
 
@@ -41,61 +41,61 @@ class Breakthrough():
                 self.__LockSolved = False                                                           #* Attibute modified to make sure no problems caused by LockSolved being True
                 while not self.__LockSolved and not self.__GameOver:
                     print()                                                                         #? unrelated but why line break like this???
-                    print("Current score:", self.__Score)                                           #* Bunch of printed details from methods
-                    print(self.__CurrentLock.GetLockDetails())                                              #* GetLockDetails Line 300
-                    print(self.__Sequence.GetCardDisplay())                                                 #* GetCardDisplay Line 
-                    print(self.__Hand.GetCardDisplay())
-                    MenuChoice = self.__GetChoice()
-                    if MenuChoice == "D":
-                        print(self.__Discard.GetCardDisplay())
-                    elif MenuChoice == "U":
-                        CardChoice  = self.__GetCardChoice()
-                        DiscardOrPlay = self.__GetDiscardOrPlayChoice()
-                        if DiscardOrPlay == "D":
-                            self.__MoveCard(self.__Hand, self.__Discard, self.__Hand.GetCardNumberAt(CardChoice - 1))
-                            self.__GetCardFromDeck(CardChoice)
-                        elif DiscardOrPlay == "P":
-                            self.__PlayCardToSequence(CardChoice)
-                    if self.__CurrentLock.GetLockSolved():
-                        self.__LockSolved = True
-                        self.__ProcessLockSolved()
-                self.__GameOver = self.__CheckIfPlayerHasLost()
-        else:
-            print("No locks in file.")
+                    print("Current score:", self.__Score)
+                    print(f"Cards Left: {self.__Deck.GetNumberOfCards()}")                          #* Bunch of printed details from methods
+                    print(self.__CurrentLock.GetLockDetails())                                      #* GetLockDetails Line 300
+                    print(self.__Sequence.GetCardDisplay())                                         #* GetCardDisplay Line 
+                    print(self.__Hand.GetCardDisplay())                                             #* GetCardDisplay Line 
+                    MenuChoice = self.__GetChoice()                                                 #* GetChoice from usr
+                    if MenuChoice == "D":                                                           #* If user chooses to discard a card
+                        print(self.__Discard.GetCardDisplay())                                      #* Display the discard pile and discard card
+                    elif MenuChoice == "U":                                                         #* If user chooses to use a card
+                        CardChoice  = self.__GetCardChoice()                                        #* GetCardChoice from user
+                        DiscardOrPlay = self.__GetDiscardOrPlayChoice()                             #* GetDiscardOrPlayChoice from user
+                        if DiscardOrPlay == "D":                                                    #* If user chooses to discard card
+                            self.__MoveCard(self.__Hand, self.__Discard, self.__Hand.GetCardNumberAt(CardChoice - 1)) #* Move card from hand to discard
+                            self.__GetCardFromDeck(CardChoice)                                      #* Get card from deck
+                        elif DiscardOrPlay == "P":                                                  #* If user chooses to play card
+                            self.__PlayCardToSequence(CardChoice)                                   #* Play card to sequence
+                    if self.__CurrentLock.GetLockSolved():                                          #* If current lock is solved
+                        self.__LockSolved = True                                                    #* Attribute modified to make sure no problems caused by LockSolved being True
+                        self.__ProcessLockSolved()                                                  #* Call __ProcessLockSolved() method, saying that the lock has been solved
+                self.__GameOver = self.__CheckIfPlayerHasLost()                                     #* Check if player has lost
+        else:                                                                                       #* Else:
+            print("No locks in file.")                                                              #* Print that there are no locks in the file
 
-    def __ProcessLockSolved(self):
-        self.__Score += 10
-        print("Lock has been solved.  Your score is now:", self.__Score)
-        while self.__Discard.GetNumberOfCards() > 0:
-            self.__MoveCard(self.__Discard, self.__Deck, self.__Discard.GetCardNumberAt(0))
-        self.__Deck.Shuffle()
-        self.__CurrentLock = self.__GetRandomLock()
+    def __ProcessLockSolved(self):                                                                  #* ProcessLockSolved method
+        self.__Score += 10                                                                          #* Score is incremented by 10
+        print("Lock has been solved.  Your score is now:", self.__Score)                            #* Print that the lock has been solved and the new score
+        while self.__Discard.GetNumberOfCards() > 0:                                                #* While there are cards in the discard pile 
+            self.__MoveCard(self.__Discard, self.__Deck, self.__Discard.GetCardNumberAt(0))         #* Move the card from the discard pile to the deck
+        self.__Deck.Shuffle()                                                                       #* Shuffle the deck
+        self.__CurrentLock = self.__GetRandomLock()                                                 #* Get a random lock and set it as the current lock
 
-    def __CheckIfPlayerHasLost(self):
-        if self.__Deck.GetNumberOfCards() == 0:
-            print("You have run out of cards in your deck.  Your final score is:", self.__Score)
-            return True
-        else:
-            return False
+    def __CheckIfPlayerHasLost(self):                                                               #* CheckIfPlayerHasLost method
+        if self.__Deck.GetNumberOfCards() == 0:                                                     #* If there are no cards in the deck
+            print("You have run out of cards in your deck.  Your final score is:", self.__Score)    #* Print that you have run out of cards and the final score
+            return True                                                                             #* Return True (game over)
+        else:                                                                                       #* Else:
+            return False                                                                            #* Return False (game not over)
     
-    def __SetupGame(self):
-        Choice = input("Enter L to load a game from a file, anything else to play a new game:> ").upper() #*gets user input for what they want to do next and converts it to upper case(avoiding errors with IF statements)
+    def __SetupGame(self):                                                                          #* SetupGame method
+        Choice = input("Enter L to load a game from a file, anything else to play a new game:> ").upper() #* Get user input, convert to uppercase
+        #! A QUESTION COULD BE ASKED HERE TO IMPLEMENT A SYSTEM TO IMPORT A GAME FROM A USER SPECIFIED FILE 
+        if Choice == "L":                                                                           #* If user chooses to load a game
+            if not self.__LoadGame("game1.txt"):                                                    #* load game1.txt 
+                self.__GameOver = True                                                              #* GameOver is set to True
         
-        #*if choice == "L" => Load a game with the __LoadGame function with the parameter "game1.txt" (used to determine file that contains the game text)
-        if Choice == "L":
-            if not self.__LoadGame("game1.txt"):
-                self.__GameOver = True
-        
-        else:
-            self.__CreateStandardDeck() #*initialises deck
-            self.__Deck.Shuffle() #* shuffles deck
-            for Count in range(5): #* draws top 5 cards
-                self.__MoveCard(self.__Deck, self.__Hand, self.__Deck.GetCardNumberAt(0))
-            self.__AddDifficultyCardsToDeck() # add stuff here
-            self.__Deck.Shuffle() #* re-shuffle deck
-            self.__CurrentLock = self.__GetRandomLock() #* sets current lock to random lock
+        else:                                                                                       #* if user chooses to play a new game
+            self.__CreateStandardDeck()                                                             #* Call __CreateStandardDeck() method (creates a new deck)
+            self.__Deck.Shuffle()                                                                   #* shuffles deck
+            for Count in range(5):                                                                  #* draws top 5 cards
+                self.__MoveCard(self.__Deck, self.__Hand, self.__Deck.GetCardNumberAt(0))           #* Move card from deck to hand
+            self.__AddDifficultyCardsToDeck()                                                       #* Call __AddDifficultyCardsToDeck() method (adds difficulty cards to deck)
+            self.__Deck.Shuffle()                                                                   #* re-shuffle deck
+            self.__CurrentLock = self.__GetRandomLock()                                             #* sets current lock to random lock
     
-    def __PlayCardToSequence(self, CardChoice): # idfk what this func is, please help
+    def __PlayCardToSequence(self, CardChoice):                                                     #? idfk what this func is, please help. this is a mess lol
         if self.__Sequence.GetNumberOfCards() > 0:
             if self.__Hand.GetCardDescriptionAt(CardChoice - 1)[0] != self.__Sequence.GetCardDescriptionAt(self.__Sequence.GetNumberOfCards() - 1)[0]:
                 self.__Score += self.__MoveCard(self.__Hand, self.__Sequence, self.__Hand.GetCardNumberAt(CardChoice - 1))
@@ -113,13 +113,13 @@ class Breakthrough():
         SequenceAsString = ""
         for Count in range(self.__Sequence.GetNumberOfCards() - 1, max(0, self.__Sequence.GetNumberOfCards() - 3) -1, -1):
             if len(SequenceAsString) > 0:
-                SequenceAsString = ", " + SequenceAsString
+                SequenceAsString = ", " + SequenceAsString # bad string practices 
             SequenceAsString = self.__Sequence.GetCardDescriptionAt(Count) + SequenceAsString
             if self.__CurrentLock.CheckIfConditionMet(SequenceAsString):
                 return True
         return False
     
-    def __SetupCardCollectionFromGameFile(self, LineFromFile, CardCol): # idfk what this is, need help here
+    def __SetupCardCollectionFromGameFile(self, LineFromFile, CardCol):                             #* SetupCardCollectionFromGameFile method
         if len(LineFromFile) > 0:
             SplitLine = LineFromFile.split(",")
             for Item in SplitLine:
