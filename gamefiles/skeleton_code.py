@@ -307,9 +307,9 @@ class Lock():
             if C.GetMet():
                 LockDetails += "Challenge met: "                                #* Prints if challenge met/not met
             else:
-                LockDetails += "Not met:       "
-            LockDetails += self.__ConvertConditionToString(C.GetCondition()) + "\n"
-        LockDetails += "\n"
+                LockDetails += "Not met:       "                                #* Prints if challenge met/not met
+            LockDetails += self.__ConvertConditionToString(C.GetCondition()) + "\n" #* getslock details
+        LockDetails += "\n"                                                     # formatting
         return LockDetails                                                      #* Finally returns the details of the lock stored in above variables
 
     def GetLockSolved(self):                                                    # not sure what this bit does
@@ -338,152 +338,152 @@ class Card():
     _NextCardNumber = 0
     
     def __init__(self):
-        self._CardNumber = Card._NextCardNumber
-        Card._NextCardNumber += 1
-        self._Score = 0
+        self._CardNumber = Card._NextCardNumber                                 #* sets card number 
+        Card._NextCardNumber += 1                                               #* increments card number 
+        self._Score = 0                                                         #* sets score to 0
 
     def GetScore(self):
-        return self._Score
+        return self._Score                                                      #* returns score
 
     def Process(self, Deck, Discard, Hand, Sequence, CurrentLock, Choice, CardChoice):
-        pass
+        pass                                                                      #* abstract method to be overridden by subclasses     
 
     def GetCardNumber(self): 
-        return self._CardNumber
+        return self._CardNumber                                                 #* returns card number
 
     def GetDescription(self):
-        if self._CardNumber < 10:
-            return " " + str(self._CardNumber)
-        else:
-            return str(self._CardNumber)
+        if self._CardNumber < 10:                                               #* if card number is less than 10, 
+            return " " + str(self._CardNumber)                                  #* adds a space before the number
+        else:                                                                   #* otherwise
+            return str(self._CardNumber)                                        #* returns the number
 
 class ToolCard(Card):
-    def __init__(self, *args):
-        self._ToolType = args[0]   
-        self._Kit = args[1]
-        if len(args) == 2:
-            super(ToolCard, self).__init__()
-        elif len(args) == 3:
-            self._CardNumber = args[2]
-        self.__SetScore()
+    def __init__(self, *args):                                                  #* initialises tool card
+        self._ToolType = args[0]                                                #* sets tool type to first argument
+        self._Kit = args[1]                                                     #* sets kit to second argument
+        if len(args) == 2:                                                      #* if no score is given
+            super(ToolCard, self).__init__()                                    #* initialises card
+        elif len(args) == 3:                                                    #* if score is given    
+            self._CardNumber = args[2]                                          #* sets card number to third argument
+        self.__SetScore()                                                       #* sets score
         
     def __SetScore(self):
-        if self._ToolType == "K":
-            self._Score = 3
-        elif self._ToolType == "F":
-            self._Score = 2
-        elif self._ToolType == "P":
-            self._Score = 1
+        if self._ToolType == "K":                                               #* if tool type is K
+            self._Score = 3                                                     #* sets score to 3
+        elif self._ToolType == "F":                                             #* if tool type is F
+            self._Score = 2                                                     #* sets score to 2
+        elif self._ToolType == "P":                                             #* if tool type is P
+            self._Score = 1                                                     #* sets score to 1
             
-    def GetDescription(self):
-        return self._ToolType + " " + self._Kit
+    def GetDescription(self):                                                   #* returns description of tool card
+        return self._ToolType + " " + self._Kit                                 #* returns tool type and kit
 
-class DifficultyCard(Card):
-    def __init__(self, *args):
-        self._CardType = "Dif"   
-        if len(args) == 0:
-            super(DifficultyCard, self).__init__()
-        elif len(args) == 1:
+class DifficultyCard(Card):                                                 
+    def __init__(self, *args):                                                  #* initialises difficulty card
+        self._CardType = "Dif"                                                  #* sets card type to Dif
+        if len(args) == 0:                                                      #* if no args are given
+            super(DifficultyCard, self).__init__()                              #* initialises card
+        elif len(args) == 1:                                                    #* if score is given
             self._CardNumber = args[0]
         
     def GetDescription(self):
-        return self._CardType
+        return self._CardType                                                   #* returns description of difficulty card
 
     def Process(self, Deck, Discard, Hand, Sequence, CurrentLock, Choice, CardChoice):
-        ChoiceAsInteger = None
-        try:
-            ChoiceAsInteger = int(Choice)
-        except:
-            pass
-        if ChoiceAsInteger is not None:
-            if ChoiceAsInteger >= 1 and ChoiceAsInteger <= 5:
-                if ChoiceAsInteger >= CardChoice:
-                    ChoiceAsInteger -= 1
-                if ChoiceAsInteger > 0:
-                    ChoiceAsInteger -= 1
-                if Hand.GetCardDescriptionAt(ChoiceAsInteger)[0] == "K":
-                    CardToMove = Hand.RemoveCard(Hand.GetCardNumberAt(ChoiceAsInteger))
-                    Discard.AddCard(CardToMove)
+        ChoiceAsInteger = None                                                  #* initialises choice as integer
+        try:                                                                    #* tries to convert choice to integer
+            ChoiceAsInteger = int(Choice)                                       #* if it can, sets choice as integer
+        except:                                                                 #* if it can't,
+            pass                                                                #* does nothing
+        if ChoiceAsInteger is not None:                                         #* if choice is an integer
+            if ChoiceAsInteger >= 1 and ChoiceAsInteger <= 5:                   #* if choice is between 1 and 5
+                if ChoiceAsInteger >= CardChoice:                               #* if choice is greater than or equal to card choice
+                    ChoiceAsInteger -= 1                                        #* subtracts 1 from choice
+                if ChoiceAsInteger > 0:                                         #* if choice is greater than 0
+                    ChoiceAsInteger -= 1                                        #* subtracts 1 from choice
+                if Hand.GetCardDescriptionAt(ChoiceAsInteger)[0] == "K":        #* if choice is a kit
+                    CardToMove = Hand.RemoveCard(Hand.GetCardNumberAt(ChoiceAsInteger)) #* removes card from hand
+                    Discard.AddCard(CardToMove)                                 #* adds card to discard
                     return
-        Count = 0
-        while Count < 5 and Deck.GetNumberOfCards() > 0:
-            CardToMove = Deck.RemoveCard(Deck.GetCardNumberAt(0))
-            Discard.AddCard(CardToMove)
-            Count += 1
+        Count = 0                                                               #* initialises count
+        while Count < 5 and Deck.GetNumberOfCards() > 0:                        #* while count is less than 5 and deck has cards
+            CardToMove = Deck.RemoveCard(Deck.GetCardNumberAt(0))               #* removes card from deck
+            Discard.AddCard(CardToMove)                                         #* adds card to discard
+            Count += 1                                                          #* increments count
 
 class CardCollection():
-    def __init__(self, N):
-        self._Name = N
-        self._Cards = []
+    def __init__(self, N):                                                      #* initialises card collection
+        self._Name = N                                                          #* sets name to N
+        self._Cards = []                                                        #* sets cards to empty list
 
-    def GetName(self):
-        return self._Name
+    def GetName(self):                                                          #* returns name
+        return self._Name                                                       #* returns name
 
-    def GetCardNumberAt(self, X):
-        return self._Cards[X].GetCardNumber()
+    def GetCardNumberAt(self, X):                                               #* returns card number at X
+        return self._Cards[X].GetCardNumber()                                   #* returns card number at X
 
-    def GetCardDescriptionAt(self, X):
-        return self._Cards[X].GetDescription()
+    def GetCardDescriptionAt(self, X):                                          #* returns card description at X
+        return self._Cards[X].GetDescription()                                  #* returns card description at X
 
-    def AddCard(self, C):
-        self._Cards.append(C)
+    def AddCard(self, C):                                                       #* adds card C to collection
+        self._Cards.append(C)                                                   #* adds card C to collection
     
-    def GetNumberOfCards(self): 
-        return len(self._Cards)
+    def GetNumberOfCards(self):                                                 #* returns number of cards
+        return len(self._Cards)                                                 #* returns number of cards
 
-    def Shuffle(self):
-        for Count in range(10000):
-            RNo1 = random.randint(0, len(self._Cards) - 1)
-            RNo2 = random.randint(0, len(self._Cards) - 1)
-            TempCard = self._Cards[RNo1]
-            self._Cards[RNo1] = self._Cards[RNo2]
-            self._Cards[RNo2] = TempCard
+    def Shuffle(self):                                                          #* shuffles collection
+        for Count in range(10000):                                              #* for each count
+            RNo1 = random.randint(0, len(self._Cards) - 1)                      #* sets random number 1
+            RNo2 = random.randint(0, len(self._Cards) - 1)                      #* sets random number 2
+            TempCard = self._Cards[RNo1]                                        #* sets temp card to random number 1
+            self._Cards[RNo1] = self._Cards[RNo2]                               #* sets random number 1 to random number 2
+            self._Cards[RNo2] = TempCard                                        #* sets temp card to random number 1
 
-    def RemoveCard(self, CardNumber):
-        CardFound  = False
-        Pos  = 0
-        while Pos < len(self._Cards) and not CardFound:
-            if self._Cards[Pos].GetCardNumber() == CardNumber:
-                CardToGet = self._Cards[Pos]
-                CardFound = True
-                self._Cards.pop(Pos)
-            Pos += 1
-        return CardToGet
+    def RemoveCard(self, CardNumber):                                           #* removes card with card number CardNumber
+        CardFound  = False                                                      #* initialises card found
+        Pos  = 0                                                                #* initialises pos
+        while Pos < len(self._Cards) and not CardFound:                         #* while pos is less than length of cards and card not found
+            if self._Cards[Pos].GetCardNumber() == CardNumber:                  #* if card at pos has card number CardNumber
+                CardToGet = self._Cards[Pos]                                    #* sets card to get to card at pos
+                CardFound = True                                                #* sets card found to true
+                self._Cards.pop(Pos)                                            #* removes card at pos
+            Pos += 1                                                            #* increments pos
+        return CardToGet                                                        #* returns card to get
 
-    def __CreateLineOfDashes(self, Size):
-        LineOfDashes = ""
-        for Count in range(Size):
-            LineOfDashes += "------"
-        return LineOfDashes
+    def __CreateLineOfDashes(self, Size):                                       #* creates line of dashes of size Size
+        LineOfDashes = ""                                                       #* initialises line of dashes
+        for Count in range(Size):                                               #* for each count
+            LineOfDashes += "------"                                            #* adds dash to line of dashes
+        return LineOfDashes                                                     #* returns line of dashes
     
-    def GetCardDisplay(self):
-        CardDisplay = "\n" + self._Name + ":"                           #* Variable steals the name of the card given (defined in the class' attribute from use of class elsewhere)
-        if len(self._Cards) == 0:
-            return CardDisplay + " empty" + "\n" + "\n"                 #* Returns card values
-        else:
-            CardDisplay += "\n" + "\n"
+    def GetCardDisplay(self):                                                   #* returns card display
+        CardDisplay = "\n" + self._Name + ":"                                   #* Variable steals the name of the card given (defined in the class' attribute from use of class elsewhere)
+        if len(self._Cards) == 0:                                               #* if no cards
+            return CardDisplay + " empty" + "\n" + "\n"                         #* Returns card values
+        else:                                                                   #* if cards
+            CardDisplay += "\n" + "\n"                                          #* adds new line
         LineOfDashes = ""           #? Yet again why this janky formatting??? *later edit - predefining variable for later use
-        CARDS_PER_LINE  = 10                                            #* Maximum cards defined here
-        if len(self._Cards) > CARDS_PER_LINE:                           #* If length of cards is greater than 10 state length of line of dashes = 10
-            LineOfDashes = self.__CreateLineOfDashes(CARDS_PER_LINE)    #* LineOfDashes line is set to current CARDS_PER_LINE variable
-        else:
-            LineOfDashes = self.__CreateLineOfDashes(len(self._Cards))  #* Else? Get the length of the cards and set that to the line of dashes
-        CardDisplay += LineOfDashes + "\n"
-        Complete = False
-        Pos  = 0
-        while not Complete:
-            CardDisplay += "| " + self._Cards[Pos].GetDescription() + " "
-            Pos += 1
-            if Pos % CARDS_PER_LINE == 0:
-                CardDisplay += "|" + "\n" + LineOfDashes + "\n"
-            if Pos == len(self._Cards):
-                Complete = True
-        if len(self._Cards) % CARDS_PER_LINE > 0:
-            CardDisplay += "|" + "\n"
-            if len(self._Cards) > CARDS_PER_LINE:
-                LineOfDashes = self.__CreateLineOfDashes(len(self._Cards) % CARDS_PER_LINE)
-            CardDisplay += LineOfDashes + "\n"
-        return CardDisplay
+        CARDS_PER_LINE  = 10                                                    #* Maximum cards defined here
+        if len(self._Cards) > CARDS_PER_LINE:                                   #* If length of cards is greater than 10 state length of line of dashes = 10
+            LineOfDashes = self.__CreateLineOfDashes(CARDS_PER_LINE)            #* LineOfDashes line is set to current CARDS_PER_LINE variable
+        else:                                                                   #* else        
+            LineOfDashes = self.__CreateLineOfDashes(len(self._Cards))          #* LineOfDashes line is set to current length of cards
+        CardDisplay += LineOfDashes + "\n"                                      #* Adds line of dashes to card display and new line
+        Complete = False                                                        #* initialises complete
+        Pos  = 0                                                                #* initialises pos
+        while not Complete:                                                     #* while not complete
+            CardDisplay += "| " + self._Cards[Pos].GetDescription() + " "       #* adds card description to card display
+            Pos += 1                                                            #* increments pos
+            if Pos % CARDS_PER_LINE == 0:                                       #* if pos is divisible by 10
+                CardDisplay += "|" + "\n" + LineOfDashes + "\n"                 #* adds new line and line of dashes
+            if Pos == len(self._Cards):                                         #* if pos is equal to length of cards
+                Complete = True                                                 #* sets complete to true
+        if len(self._Cards) % CARDS_PER_LINE > 0:                               #* if length of cards is not divisible by 10
+            CardDisplay += "|" + "\n"                                           #* adds new line
+            if len(self._Cards) > CARDS_PER_LINE:                               #* if length of cards is greater than 10
+                LineOfDashes = self.__CreateLineOfDashes(len(self._Cards) % CARDS_PER_LINE) #* LineOfDashes line is set to current length of cards modulo CARDS_PER_LINE
+            CardDisplay += LineOfDashes + "\n"                                  #* Adds line of dashes to card display and new line
+        return CardDisplay                                                      #* returns card display
 
-if __name__ == "__main__":
-    Main()
+if __name__ == "__main__":                                                      #* if main
+    Main()                                                                      #* runs main
