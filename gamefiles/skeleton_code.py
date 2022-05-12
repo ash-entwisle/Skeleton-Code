@@ -96,53 +96,53 @@ class Breakthrough():
             self.__CurrentLock = self.__GetRandomLock()                                             #* sets current lock to random lock
     
     def __PlayCardToSequence(self, CardChoice):                                                     #? idfk what this func is, please help. this is a mess lol
-        if self.__Sequence.GetNumberOfCards() > 0:
-            if self.__Hand.GetCardDescriptionAt(CardChoice - 1)[0] != self.__Sequence.GetCardDescriptionAt(self.__Sequence.GetNumberOfCards() - 1)[0]:
-                self.__Score += self.__MoveCard(self.__Hand, self.__Sequence, self.__Hand.GetCardNumberAt(CardChoice - 1))
-                self.__GetCardFromDeck(CardChoice)
-        else:
-            self.__Score += self.__MoveCard(self.__Hand, self.__Sequence, self.__Hand.GetCardNumberAt(CardChoice - 1))
-            self.__GetCardFromDeck(CardChoice)
-        if self.__CheckIfLockChallengeMet():
-            print()
-            print("A challenge on the lock has been met.")
-            print()
-            self.__Score += 5
+        if self.__Sequence.GetNumberOfCards() > 0:                                                  #* If there are cards in the sequence
+            if self.__Hand.GetCardDescriptionAt(CardChoice - 1)[0] != self.__Sequence.GetCardDescriptionAt(self.__Sequence.GetNumberOfCards() - 1)[0]:  #* If the card in the hand is not the same as the last card in the sequence
+                self.__Score += self.__MoveCard(self.__Hand, self.__Sequence, self.__Hand.GetCardNumberAt(CardChoice - 1))  #* Move card from hand to sequence
+                self.__GetCardFromDeck(CardChoice)                                                  #* Get card from deck
+        else:                                                                                       #* Else:
+            self.__Score += self.__MoveCard(self.__Hand, self.__Sequence, self.__Hand.GetCardNumberAt(CardChoice - 1))  #* Move card from hand to sequence
+            self.__GetCardFromDeck(CardChoice)                                                      #* Get card from deck
+        if self.__CheckIfLockChallengeMet():                                                        #* If the lock challenge is met
+            print()                                                                                 #* Print a blank line
+            print("A challenge on the lock has been met.")                                          #* Print that the lock challenge has been met
+            print()                                                                                 #* Print a blank line
+            self.__Score += 5                                                                       #* Score is incremented by 5
 
-    def __CheckIfLockChallengeMet(self): #* checks if lock is is met from sequence 
-        SequenceAsString = ""
-        for Count in range(self.__Sequence.GetNumberOfCards() - 1, max(0, self.__Sequence.GetNumberOfCards() - 3) -1, -1):
-            if len(SequenceAsString) > 0:
-                SequenceAsString = ", " + SequenceAsString # bad string practices 
-            SequenceAsString = self.__Sequence.GetCardDescriptionAt(Count) + SequenceAsString
-            if self.__CurrentLock.CheckIfConditionMet(SequenceAsString):
-                return True
-        return False
+    def __CheckIfLockChallengeMet(self):                                                            #* checks if lock is is met from sequence 
+        SequenceAsString = ""                                                                       #* creates a string to store the sequence
+        for Count in range(self.__Sequence.GetNumberOfCards() - 1, max(0, self.__Sequence.GetNumberOfCards() - 3) -1, -1): #* loops through the sequence
+            if len(SequenceAsString) > 0:                                                           #* if there is already a string
+                SequenceAsString = ", " + SequenceAsString # bad string practices                   #* add a comma and a space to the string
+            SequenceAsString = self.__Sequence.GetCardDescriptionAt(Count) + SequenceAsString       #* add the card to the string
+            if self.__CurrentLock.CheckIfConditionMet(SequenceAsString):                            #* if the lock is met
+                return True                                                                         #* return true
+        return False                                                                                #* return false
     
     def __SetupCardCollectionFromGameFile(self, LineFromFile, CardCol):                             #* SetupCardCollectionFromGameFile method
-        if len(LineFromFile) > 0:
-            SplitLine = LineFromFile.split(",")
-            for Item in SplitLine:
-                if len(Item) == 5:
-                    CardNumber = int(Item[4])
-                else:
-                    CardNumber = int(Item[4:6])
-                if Item[0: 3] == "Dif":
-                    CurrentCard = DifficultyCard(CardNumber)
-                    CardCol.AddCard(CurrentCard)
-                else:
-                    CurrentCard = ToolCard(Item[0], Item[2], CardNumber)
-                    CardCol.AddCard(CurrentCard)
+        if len(LineFromFile) > 0:                                                                   #* If there is a line in the file
+            SplitLine = LineFromFile.split(",")                                                     #* Split the line into a list around the commas
+            for Item in SplitLine:                                                                  #* For each item in the list
+                if len(Item) == 5:                                                                  #* If the item is 5 characters long
+                    CardNumber = int(Item[4])                                                       #* Set the card number to the last character of the item
+                else:                                                                               #* Else:
+                    CardNumber = int(Item[4:6])                                                     #* Set the card number to the last two characters of the item
+                if Item[0: 3] == "Dif":                                                             #* If the first three characters are "Dif"
+                    CurrentCard = DifficultyCard(CardNumber)                                        #* Create a difficulty card
+                    CardCol.AddCard(CurrentCard)                                                    #* Add the card to the collection
+                else:                                                                               #* Else:
+                    CurrentCard = ToolCard(Item[0], Item[2], CardNumber)                            #* Create a tool card
+                    CardCol.AddCard(CurrentCard)                                                    #* Add the card to the collectionb
     
     def __SetupLock(self, Line1, Line2):
-        SplitLine = Line1.split(";")
-        for Item in SplitLine:
-            Conditions = Item.split(",")
-            self.__CurrentLock.AddChallenge(Conditions)
-        SplitLine = Line2.split(";")
-        for Count in range(0, len(SplitLine)):
-            if SplitLine[Count] == "Y":
-                self.__CurrentLock.SetChallengeMet(Count, True)
+        SplitLine = Line1.split(";")                                                                #* Split the line into a list around the semicolons
+        for Item in SplitLine:                                                                      #* For each item in the list
+            Conditions = Item.split(",")                                                            #* Split the item into a list around the commas
+            self.__CurrentLock.AddChallenge(Conditions)                                             #* Add the conditions to the lock
+        SplitLine = Line2.split(";")                                                                #* Split the line into a list around the semicolons
+        for Count in range(0, len(SplitLine)):                                                      #* For each item in the list
+            if SplitLine[Count] == "Y":                                                             #* If the item is "Y"
+                self.__CurrentLock.SetChallengeMet(Count, True)                                     #* Set the challenge met to true
     
     def __LoadGame(self, FileName):
         try:                                                                            #*Attempts to run the following, treating the filename as valid and workable
@@ -166,64 +166,64 @@ class Breakthrough():
             print("File not loaded")
             return False
 
-    def __LoadLocks(self): #* loads locks from locks.txt
-        FileName = "locks.txt"
-        self.__Locks = []
-        try:
-            with open(FileName) as f: 
-                LineFromFile = f.readline().rstrip()
-                while LineFromFile != "":
-                    Challenges = LineFromFile.split(";")
-                    LockFromFile = Lock()
-                    for C in Challenges:
-                        Conditions = C.split(",")
-                        LockFromFile.AddChallenge(Conditions)
-                    self.__Locks.append(LockFromFile)
-                    LineFromFile = f.readline().rstrip()
-        except:
-            print("File not loaded")
+    def __LoadLocks(self): #! Question could be asked here to load custom locks
+        FileName = "locks.txt"                                                          #* Sets the file name
+        self.__Locks = []                                                               #* Creates a list to store the locks
+        try:                                                                            #*Attempts to run the following, treating the filename as valid and workable
+            with open(FileName) as f:                                                   #* opens the file
+                LineFromFile = f.readline().rstrip()                                    #* read and strip the first line
+                while LineFromFile != "":                                               #* while the line is not empty
+                    Challenges = LineFromFile.split(";")                                #* split the line into a list around the semicolons
+                    LockFromFile = Lock()                                               #* create a lock
+                    for C in Challenges:                                                #* for each challenge
+                        Conditions = C.split(",")                                       #* split the challenge into a list around the commas
+                        LockFromFile.AddChallenge(Conditions)                           #* add the challenge to the lock
+                    self.__Locks.append(LockFromFile)                                   #* add the lock to the list
+                    LineFromFile = f.readline().rstrip()                                #* read and strip the next line
+        except:                                                                         #* if the file is not found
+            print("File not loaded")                                                    #* print that the file was not loaded
         
     def __GetRandomLock(self): #* picks random lock
         return self.__Locks[random.randint(0, len(self.__Locks) - 1)]
 
-    def __GetCardFromDeck(self, CardChoice): # idfk what to do here lol
-        if self.__Deck.GetNumberOfCards() > 0:
-            if self.__Deck.GetCardDescriptionAt(0) == "Dif":
-                CurrentCard = self.__Deck.RemoveCard(self.__Deck.GetCardNumberAt(0))
-                print()
-                print("Difficulty encountered!")
-                print(self.__Hand.GetCardDisplay())
-                print("To deal with this you need to either lose a key ", end='')
-                Choice = input("(enter 1-5 to specify position of key) or (D)iscard five cards from the deck:> ")
-                print()
-                self.__Discard.AddCard(CurrentCard)
-                CurrentCard.Process(self.__Deck, self.__Discard, self.__Hand, self.__Sequence, self.__CurrentLock, Choice, CardChoice)
-        while self.__Hand.GetNumberOfCards() < 5 and self.__Deck.GetNumberOfCards() > 0:
-            if self.__Deck.GetCardDescriptionAt(0) == "Dif":
-                self.__MoveCard(self.__Deck, self.__Discard, self.__Deck.GetCardNumberAt(0))
-                print("A difficulty card was discarded from the deck when refilling the hand.")
-            else:
-                self.__MoveCard(self.__Deck, self.__Hand, self.__Deck.GetCardNumberAt(0))
-        if self.__Deck.GetNumberOfCards() == 0 and self.__Hand.GetNumberOfCards() < 5:
-            self.__GameOver = True
+    def __GetCardFromDeck(self, CardChoice): # idfk what to do here lo  l
+        if self.__Deck.GetNumberOfCards() > 0:                                          #* if there are cards in the deck
+            if self.__Deck.GetCardDescriptionAt(0) == "Dif":                            #* if the first card is a difficulty card
+                CurrentCard = self.__Deck.RemoveCard(self.__Deck.GetCardNumberAt(0))    #* remove the card from the deck
+                print()                                                                 #* print a new line
+                print("Difficulty encountered!")                                        #* print that a difficulty card was encountered
+                print(self.__Hand.GetCardDisplay())                                     #* print the hand
+                print("To deal with this you need to either lose a key ", end='')       #* print that you need to lose a key
+                Choice = input("(enter 1-5 to specify position of key) or (D)iscard five cards from the deck:> ")   #* ask the user to choose a key
+                print()                                                                 #* print a new line
+                self.__Discard.AddCard(CurrentCard)                                     #* add the card to the discard pile
+                CurrentCard.Process(self.__Deck, self.__Discard, self.__Hand, self.__Sequence, self.__CurrentLock, Choice, CardChoice)  #* process the card
+        while self.__Hand.GetNumberOfCards() < 5 and self.__Deck.GetNumberOfCards() > 0:    #* while the hand is less than 5 cards and there are cards in the deck
+            if self.__Deck.GetCardDescriptionAt(0) == "Dif":                            #* if the first card is a difficulty card
+                self.__MoveCard(self.__Deck, self.__Discard, self.__Deck.GetCardNumberAt(0))    #* move the card to the discard pile
+                print("A difficulty card was discarded from the deck when refilling the hand.") #* print that a difficulty card was discarded
+            else:                                                                       #* else
+                self.__MoveCard(self.__Deck, self.__Hand, self.__Deck.GetCardNumberAt(0))   #* move the card to the hand
+        if self.__Deck.GetNumberOfCards() == 0 and self.__Hand.GetNumberOfCards() < 5:  #* if there are no cards in the deck and the hand is less than 5 cards
+            self.__GameOver = True                                                      #* set the game over flag to true
 
-    def __GetCardChoice(self): #* specifies what card choice
-        Choice = None
-        while Choice is None:
-            try: 
-                Choice = int(input("Enter a number between 1 and 5 to specify card to use:> "))
-            except:
-                pass
-        return Choice
+    def __GetCardChoice(self):                                                          #* specifies what card choice
+        Choice = None                                                                   #* sets the choice to none  
+        while Choice is None:                                                           #* while the choice is none
+            try:                                                                        #* try
+                Choice = int(input("Enter a number between 1 and 5 to specify card to use:> ")) #* ask the user to enter a number between 1 and 5
+            except:                                                                     #* if the user enters something other than a number
+                pass                                                                    #* do nothing
+        return Choice                                                                   #* return the choice
 
-    def __GetDiscardOrPlayChoice(self): #* choice of discard/play
-        Choice = input("(D)iscard or (P)lay?:> ").upper()
-        return Choice
+    def __GetDiscardOrPlayChoice(self):                                                 #* choice of discard/play
+        Choice = input("(D)iscard or (P)lay?:> ").upper()                               #* ask the user to choose discard or play
+        return Choice                                                                   #* return the choice
 
-    def __GetChoice(self): #* use/discard
-        print()
-        Choice = input("(D)iscard inspect, (U)se card:> ").upper()
-        return Choice
+    def __GetChoice(self):                                                              #* use/discard
+        print()                                                                         #* print a new line
+        Choice = input("(D)iscard inspect, (U)se card:> ").upper()                      #* ask the user to choose discard or use
+        return Choice                                                                   #* return the choice
     
     def __AddDifficultyCardsToDeck(self): # idfk abt this sorta stuff
         for Count in range(5):
@@ -295,11 +295,11 @@ class Lock():
         self._Challenges.append(C)
 
     def __ConvertConditionToString(self, C):                                    #* formatting to be able to use condition as string
-        ConditionAsString = ""
-        for Pos in range(0, len(C) - 1):
-            ConditionAsString += C[Pos] + ", "
-        ConditionAsString += C[len(C) - 1]
-        return ConditionAsString
+        ConditionAsString = ""                                                  #* initialises string
+        for Pos in range(0, len(C) - 1):                                        #* -1 to avoid comma at end
+            ConditionAsString += C[Pos] + ", "                                  #* adds condition to string
+        ConditionAsString += C[len(C) - 1]                                      #* adds last element
+        return ConditionAsString                                                #* returns string
 
     def GetLockDetails(self):
         LockDetails = "\n" + "CURRENT LOCK" + "\n" + "------------" + "\n"      #* Basic variable to assist with formatting
@@ -313,26 +313,26 @@ class Lock():
         return LockDetails                                                      #* Finally returns the details of the lock stored in above variables
 
     def GetLockSolved(self):                                                    # not sure what this bit does
-        for C in self._Challenges:
-            if not C.GetMet():
-                return False
-        return True
+        for C in self._Challenges:                                              #* for C in challenges
+            if not C.GetMet():                                                  #* if not met
+                return False                                                    #* return false
+        return True                                                             #* else return true
     
     def CheckIfConditionMet(self, Sequence):                                    # same here as well
-        for C in self._Challenges:
-            if not C.GetMet() and Sequence == self.__ConvertConditionToString(C.GetCondition()):
-                C.SetMet(True)
-                return True
-        return False
+        for C in self._Challenges:                                              #* for C in challenges
+            if not C.GetMet() and Sequence == self.__ConvertConditionToString(C.GetCondition()): #* if not met and sequence is same as condition
+                C.SetMet(True)                                                  #* set met to true
+                return True                                                     #* return true
+        return False                                                            #* else return false
 
     def SetChallengeMet(self, Pos, Value):
-        self._Challenges[Pos].SetMet(Value)
+        self._Challenges[Pos].SetMet(Value)                                     #* sets met to value
     
     def GetChallengeMet(self, Pos): 
-        return self._Challenges[Pos].GetMet()
+        return self._Challenges[Pos].GetMet()                                   #* returns if met or not met
     
     def GetNumberOfChallenges(self): 
-        return len(self._Challenges)
+        return len(self._Challenges)                                            #* returns number of challenges
 
 class Card():
     _NextCardNumber = 0
