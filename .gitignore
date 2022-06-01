@@ -1,1 +1,7 @@
 .vscode/
+./test
+files/notes/
+/files/notes
+/test/test.md
+/test/test.py
+/files/notes/P1A.md
