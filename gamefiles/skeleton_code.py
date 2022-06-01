@@ -322,6 +322,26 @@ class Breakthrough():
     def __AddDifficultyCardsToDeck(self): # idfk abt this sorta stuff
         for Count in range(5):                                                                      #! THERE COULD BE A QUESTION HERE TO CUSTOMIZE THE DIFFICULTY
             self.__Deck.AddCard(DifficultyCard())                                                   #* add 5 difficulty cards to the deck
+    
+    '''
+    def __AddDifficultyCardsToDeck(self, num):
+        for Count in range(num):                                                                    #* add the specified number of difficulty cards to the deck
+            self.__Deck.AddCard(DifficultyCard())
+    
+    def __AddCustomDifficulty(self):                                                                #* add custom difficulty cards to the deck
+        valid = False                                                                               #* set the valid flag to false
+        while not valid:                                                                            #* while the valid flag is false
+            Difficulty = input("Enter difficulty (1-5):> ")                                         #* ask the user to enter a difficulty
+            try:                                                                                    #* try
+                Difficulty = int(Difficulty)                                                        #* convert the difficulty to an integer
+            except:                                                                                 #* if the user enters something other than a number
+                print("Invalid input")                                                              #* print that the input was invalid
+        if Difficulty < 1:                                                                          #* if the difficulty is less than 1
+            Difficulty = 1                                                                          #* set the difficulty to 1
+        elif Difficulty > 5:                                                                        #* if the difficulty is greater than 5
+            Difficulty = 5                                                                          #* set the difficulty to 5
+        self.__AddDifficultyCardsToDeck(int(Difficulty))                                            #* add the specified number of difficulty cards to the deck
+    '''
 
     def __CreateStandardDeck(self):                                                                 #! THERE COULD BE A QUESTION HERE TO CUSTOMIZE THE DECK
         for Count in range(5):                                                                      #* add 5 pick sets to the deck
