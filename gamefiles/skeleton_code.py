@@ -82,6 +82,41 @@ class Breakthrough():
     def __SetupGame(self):                                                                          #* SetupGame method
         Choice = input("Enter L to load a game from a file, anything else to play a new game:> ").upper() #* Get user input, convert to uppercase
         #! A QUESTION COULD BE ASKED HERE TO IMPLEMENT A SYSTEM TO IMPORT A GAME FROM A USER SPECIFIED FILE 
+        #! model ans: makr a menu to ask if user wants to load a game, make a new game or quit
+        '''
+        loop = True                                                                                 #* Loop is set to True
+        while loop:                                                                                 #* While loop is True
+            Choice = input("Please either Load a game, start a new game or quit [L/N/Q]").upper()   #* Get user input, convert to uppercase
+            if Choice in ["L", "LOAD"]:                                                             #* If user chooses to load a game
+                path = input("Enter the path to the file:> ")                                       #* Get the path to the file
+                if not self.__LoadGame(path):                                                       #* If the game could not be loaded
+                    print("Error loading game from file.")                                          #* Print that there was an error loading the game
+                else:                                                                               #* Else:
+                    loop = False                                                                    #* Loop is set to False
+            
+            elif Choice in ["NEW", "N"]:
+                self.__CreateStandardDeck()                                                         #* Call __CreateStandardDeck() method (creates a new deck)
+                self.__Deck.Shuffle()                                                               #* shuffles deck
+                for Count in range(5):                                                              #* draws top 5 cards
+                    self.__MoveCard(self.__Deck, self.__Hand, self.__Deck.GetCardNumberAt(0))       #* Move card from deck to hand
+                self.__AddDifficultyCardsToDeck()                                                   #* Call __AddDifficultyCardsToDeck() method (adds difficulty cards to deck)
+                self.__Deck.Shuffle()                                                               #* re-shuffle deck
+                self.__CurrentLock = self.__GetRandomLock()                                         #* sets current lock to random lock     
+                loop = False                                                                        #* Loop is set to False
+            
+            elif Choice in ["Q", "QUIT"]:                                                           #* If user chooses to quit
+                loop = False                                                                        #* Loop is set to False
+                self.__GameOver = True                                                              #* GameOver is set to True
+            
+            else:                                                                                   #* Else:
+                print("Invalid choice:")                                                            #* Print that the user has made an invalid choice
+                print(" L - Load game from file")                                                   #* Print that the user can load a game from a file
+                print(" N - Start a new game")                                                      #* Print that the user can start a new game
+                print(" Q - Quit")                                                                  #* Print that the user can quit
+                
+        '''
+
+
         if Choice == "L":                                                                           #* If user chooses to load a game
             if not self.__LoadGame("game1.txt"):                                                    #* load game1.txt 
                 self.__GameOver = True                                                              #* GameOver is set to True
