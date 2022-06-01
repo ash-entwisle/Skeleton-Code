@@ -80,13 +80,13 @@ class Breakthrough():
             return False                                                                            #* Return False (game not over)
     
     def __SetupGame(self):                                                                          #* SetupGame method
-        Choice = input("Enter L to load a game from a file, anything else to play a new game:> ").upper() #* Get user input, convert to uppercase
+        #Choice = input("Enter L to load a game from a file, anything else to play a new game:> ").upper() #* Get user input, convert to uppercase
         #! A QUESTION COULD BE ASKED HERE TO IMPLEMENT A SYSTEM TO IMPORT A GAME FROM A USER SPECIFIED FILE 
         #! model ans: makr a menu to ask if user wants to load a game, make a new game or quit
-        '''
+        
         loop = True                                                                                 #* Loop is set to True
         while loop:                                                                                 #* While loop is True
-            Choice = input("Please either Load a game, start a new game or quit [L/N/Q]").upper()   #* Get user input, convert to uppercase
+            Choice = input("Please either Load a game, start a new game or quit [L/N/Q]:> ").upper()#* Get user input, convert to uppercase
             if Choice in ["L", "LOAD"]:                                                             #* If user chooses to load a game
                 path = input("Enter the path to the file:> ")                                       #* Get the path to the file
                 if not self.__LoadGame(path):                                                       #* If the game could not be loaded
@@ -105,6 +105,7 @@ class Breakthrough():
                 loop = False                                                                        #* Loop is set to False
             
             elif Choice in ["Q", "QUIT"]:                                                           #* If user chooses to quit
+                print("Thanks for playing!")                                                        #* Print that the game has been quit
                 loop = False                                                                        #* Loop is set to False
                 self.__GameOver = True                                                              #* GameOver is set to True
             
@@ -129,6 +130,8 @@ class Breakthrough():
             self.__AddDifficultyCardsToDeck()                                                       #* Call __AddDifficultyCardsToDeck() method (adds difficulty cards to deck)
             self.__Deck.Shuffle()                                                                   #* re-shuffle deck
             self.__CurrentLock = self.__GetRandomLock()                                             #* sets current lock to random lock
+        
+        '''
     
     def __PlayCardToSequence(self, CardChoice):                                                     #? idfk what this func is, please help. this is a mess lol
         if self.__Sequence.GetNumberOfCards() > 0:                                                  #* If there are cards in the sequence
@@ -199,6 +202,63 @@ class Breakthrough():
         except:                                                                                     #* If the file is not valid
             print("File not loaded")                                                                #* throw an error
             return False
+    
+    #! Model ans: save a game to a file (also see menu)
+    '''
+    # assume that func is called by the menu
+    def __SaveGame(self, path):
+        try:                                                                                        #* try:
+            exists = os.path.isfile(path)                                                           #* check if file exists
+            write = False                                                                           #* set write to false
+            if exists:                                                                              #* if file exists
+                overwrite = input("File exists, overwrite? (Y/N)")                                  #* ask if user wants to overwrite
+                if overwrite == "Y":                                                                #* if user wants to overwrite
+                    write = True                                                                    #* set write to true
+            if write:                                                                               #* if write is true
+                with open(path, "w") as f:                                                          #* open file
+                    f.write(str(self.__Score) + "\n")                                               #* write score to file
+                    f.write(str(self.__CurrentLock.GetLockAsString()) + "\n")                       #* write lock to file
+                    f.write(str(self.__Hand.GetHandAsString()) + "\n")                              #* write hand to file
+                    f.write(str(self.__Sequence.GetSequenceAsString()) + "\n")                      #* write sequence to file
+                    f.write(str(self.__Discard.GetDiscardAsString()) + "\n")                        #* write discard to file
+                    f.write(str(self.__Deck.GetDeckAsString()) + "\n")                              #* write deck to file
+                    return True                                                                     #* return true
+        except:                                                                                     #* if file is not valid
+            print("File not saved")                                                                 #* throw an error
+            return False                                                                            #* return false
+    '''
+    
+    #! Model ans: load locks from file
+    '''
+    def __LockPath(self):                                                                           #* LockPath method
+        loaded = False                                                                              #* Set loaded to false
+        while not loaded:                                                                           #* While loaded is false
+            choice = input("do you want to load locks from a file? (Y/N)")                          #* Ask the user if they want to load locks from a file
+            if choice.upper() == "Y":                                                               #* If the user wants to load locks from a file
+                path = input("Please enter the path to the file: ")                                 #* Ask the user for the path to the file
+                if os.path.isfile(path):                                                            #* If the file exists
+                    self.__LoadLocks(path)                                                          #* Load the locks from the file
+                else:                                                                               #* Else:
+                    print("Invalid path, please try again")                                         #* Throw an error
+            elif choice.upper() == "N":                                                             #* Else if the user does not want to load locks from a file
+                self.__LoadLocks("Locks.txt")                                                       #* Load the locks from the default file
+    
+    def __LoadLocks(self, path):                                                                    
+        self.__Locks = []                                                                           #* Creates a list to store the locks
+        try:                                                                                        #*Attempts to run the following, treating the filename as valid and workable
+            with open(path) as f:                                                                   #* opens the file
+                LineFromFile = f.readline().rstrip()                                                #* read and strip the first line
+                while LineFromFile != "":                                                           #* while the line is not empty
+                    Challenges = LineFromFile.split(";")                                            #* split the line into a list around the semicolons
+                    LockFromFile = Lock()                                                           #* create a lock
+                    for C in Challenges:                                                            #* for each challenge
+                        Conditions = C.split(",")                                                   #* split the challenge into a list around the commas
+                        LockFromFile.AddChallenge(Conditions)                                       #* add the challenge to the lock
+                    self.__Locks.append(LockFromFile)                                               #* add the lock to the list
+                    LineFromFile = f.readline().rstrip()                                            #* read and strip the next line
+        except:                                                                                     #* if the file is not found
+            print("File not loaded")                                                                #* print that the file was not loaded  
+    '''
 
     def __LoadLocks(self):                                                                          #! Question could be asked here to load custom locks
         FileName = "locks.txt"                                                                      #* Sets the file name
@@ -216,7 +276,7 @@ class Breakthrough():
                     LineFromFile = f.readline().rstrip()                                            #* read and strip the next line
         except:                                                                                     #* if the file is not found
             print("File not loaded")                                                                #* print that the file was not loaded
-        
+
     def __GetRandomLock(self): #* picks random lock
         return self.__Locks[random.randint(0, len(self.__Locks) - 1)]
 
