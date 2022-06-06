@@ -1,8 +1,8 @@
 # **How to Use**
 
-This is a general document that outlines information for the Skeleton Code _(found in gamefiles\skeleton\_code.py)_ and a rundown of how it works and what it can be used for.
-Further information about the code can be found in _preliminary\_material.pdf_
-Also, to all the contributors... ***DONT COMMIT TO MAIN!!!***
+This is a general document that outlines information for the Skeleton Code _(found in gamefiles\skeleton\_code.py)_ and a rundown of how it works and what it can be used for.  
+Further information about the code can be found in _preliminary\_material.pdf_.  
+If you have any examples you want me to go through, feel free to DM me on twitter, or send me an email
 
 **Links to Sections:**
 1. [timestamped notes on progress](https://github.com/async-def-init/Skeleton-Code#notes)
@@ -22,6 +22,7 @@ Also, to all the contributors... ***DONT COMMIT TO MAIN!!!***
 [2022/01/05 17:00]: After forgetting to commit stuff for abt an hr, it is all up to date
 [2022/06/01 11:39]: ive not been here for a while, a whole bunch of stuff has been updated and happy pride month 🏳️‍🌈🏳️‍⚧️ 
                     new stuff includes example questions (commented out in the code)
+[2022/06/06 14:35]: Added another example to fix the error caused (see ln:312)
 ```
 # **Overview**
 
