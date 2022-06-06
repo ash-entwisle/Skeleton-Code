@@ -83,7 +83,7 @@ class Breakthrough():
         #Choice = input("Enter L to load a game from a file, anything else to play a new game:> ").upper() #* Get user input, convert to uppercase
         #! A QUESTION COULD BE ASKED HERE TO IMPLEMENT A SYSTEM TO IMPORT A GAME FROM A USER SPECIFIED FILE 
         #! model ans: makr a menu to ask if user wants to load a game, make a new game or quit
-        
+        '''   
         loop = True                                                                                 #* Loop is set to True
         while loop:                                                                                 #* While loop is True
             Choice = input("Please either Load a game, start a new game or quit [L/N/Q]:> ").upper()#* Get user input, convert to uppercase
@@ -130,8 +130,6 @@ class Breakthrough():
             self.__AddDifficultyCardsToDeck()                                                       #* Call __AddDifficultyCardsToDeck() method (adds difficulty cards to deck)
             self.__Deck.Shuffle()                                                                   #* re-shuffle deck
             self.__CurrentLock = self.__GetRandomLock()                                             #* sets current lock to random lock
-        
-        '''
     
     def __PlayCardToSequence(self, CardChoice):                                                     #? idfk what this func is, please help. this is a mess lol
         if self.__Sequence.GetNumberOfCards() > 0:                                                  #* If there are cards in the sequence
@@ -309,6 +307,17 @@ class Breakthrough():
             except:                                                                                 #* if the user enters something other than a number
                 pass                                                                                #* do nothing
         return Choice                                                                               #* return the choice
+    #! THERE IS AN INDEX ERROR HERE ^ A FIX FOR THIS CAN BE FOUND BELOW
+    '''
+    def __GetCardChoice(self):                                                                      #* specifies what card choice
+        choice = 0                                                                                  #* sets the choice to 0
+        while not (0 < choice < 6):                                                                 #* while the choice is not between 1 and 5
+            try:                                                                                    #* try
+                choice = int(input("Enter a number between 1 and 5 to specify card to use:> "))     #* ask the user to enter a number between 1 and 5
+            except:                                                                                 #* if the user enters something other than a number
+                pass                                                                                #* ask user again
+        return choice                                                                               #* return the choice
+    '''
 
     def __GetDiscardOrPlayChoice(self):                                                             #* choice of discard/play
         Choice = input("(D)iscard or (P)lay?:> ").upper()                                           #* ask the user to choose discard or play
